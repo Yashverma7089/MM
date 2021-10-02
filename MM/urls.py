@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from . import AdminView
 from . import EmployeeView
 from . import StateCityView
 from . import CategoryView
@@ -23,6 +24,7 @@ from . import ProductView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('adminlogin/',AdminView.AdminLogin),
     # Employee Urls
     path('employeeinterface/',EmployeeView.EmployeeInterface),
     path('employeesubmit',EmployeeView.EmployeeSubmit),
