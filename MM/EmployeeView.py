@@ -4,6 +4,9 @@ import uuid
 import random
 import os
 
+def EmployeeLogin(request):
+    return render(request,'EmployeeLogin.html') 
+
 def EmployeeInterface(request):
     return render(request, 'EmployeeInterface.html')
 

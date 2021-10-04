@@ -21,11 +21,13 @@ from . import StateCityView
 from . import CategoryView
 from . import SubCategoryView
 from . import ProductView
+from . import FinalProductView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('adminlogin/',AdminView.AdminLogin),
     # Employee Urls
+    path('employeelogin/',EmployeeView.EmployeeLogin),
     path('employeeinterface/',EmployeeView.EmployeeInterface),
     path('employeesubmit',EmployeeView.EmployeeSubmit),
     path('displayall/',EmployeeView.DisplayAll),
@@ -62,6 +64,16 @@ urlpatterns = [
     path('editdeleteproductrecord/',ProductView.EditDeleteProductRecord),
     path('editproductpicture/',ProductView.EditProductPicture),
     path('saveeditproductpicture',ProductView.SaveEditProductPicture),
+    path('getproductjson/',ProductView.GetProductJSON), 
+
+    # FinalProduct Urls
+    path('finalproductinterface/',FinalProductView.FinalProductInterface),
+    path('finalproductsubmit',FinalProductView.FinalProductSubmit),
+    path('displayallfinalproduct/',FinalProductView.DisplayAllFinalProduct),
+    path('displayfinalproductbyid/',FinalProductView.DisplayFinalProductById),
+    path('editdeletefinalproductrecord/',FinalProductView.EditDeleteFinalProductRecord),
+    path('editfinalproductpicture/',FinalProductView.EditFinalProductPicture),
+    path('saveeditfinalproductpicture',FinalProductView.SaveEditFinalProductPicture),
 
     path('fetchallstates/',StateCityView.FetchAllStates),
     path('fetchallcities/',StateCityView.FetchAllCities),

@@ -48,13 +48,13 @@
                 </tr>
                 {% for row in rows %}
                 <tr>
-                    <th scope="row">{{row.0}}</th>
+                    <th scope="row">{{row.1}}</th>
                     <td>{{row.5}}</td>
                     <td>{{row.2}}</td>
                     <td>{{row.3}}</td>
-                    <td><a href="/editsubcategorypicture?subcategoryid={{row.0}}&subcategoryname={{row.2}}&picture={{row.4}}"><img src="/static/{{row.4}}" width="50px"></a></td>
+                    <td><a href="/editsubcategorypicture?subcategoryid={{row.1}}&subcategoryname={{row.2}}&picture={{row.4}}"><img src="/static/{{row.4}}" width="50px"></a></td>
                     <!-- <td><a href="/displaysubcategorybyid?subcategoryid={{row.0}}">Edit/Delete</a></td> -->
-                    <td><a href="/displaysubcategorybyid?subcategoryid={{row.0}}"><img src="/static/edit.png" width="25%"></a></td>
+                    <td><a href="/displaysubcategorybyid?subcategoryid={{row.1}}"><img src="/static/edit.png" width="25%"></a></td>
                 </tr>
                 {% endfor %}
             </table>

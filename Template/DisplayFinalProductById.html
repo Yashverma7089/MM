@@ -1,29 +1,3 @@
-<style type="text/css">
-    .root {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #dfe6e9;
-        padding: 20px;
-    }
-
-    .myframe {
-        width: 600px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-    }
-
-    .gap {
-        margin-top: 10px;
-    }
-
-    .btnstyle {
-        display: flex;
-        justify-content: center;
-    }
-</style>
-
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -32,16 +6,43 @@
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/static/javascript/subcategory.js"></script>
+<script src="/static/javascript/product.js"></script>
 
 <head>
     <meta charset="UTF-8">
+
+    <style type="text/css">
+        .root {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #dfe6e9;
+            padding: 20px;
+        }
+
+        .myframe {
+            width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .gap {
+            margin-top: 10px;
+        }
+
+        .btnstyle {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+
     <title>Material Management [Add Products]</title>
 </head>
 
 <body style="background-color: #dfe6e9;">
-    <form action="/editdeleteproductrecord">
-        <input type="hidden" value="{{row.2}}" name="productid">
+    <form action="/editdeletefinalproductrecord">
+        <input type="hidden" value="{{row.3}}" name="finalproductid">
         <div class="root">
             <div class="myframe">
                 <div class="row"
@@ -53,7 +54,7 @@
                 <div class="row">
                     <div class="col">
                         <select id="categoryid" name="categoryid" class="form-control">
-                            <option value="{{row.0}}">{{row.7}}</option>
+                            <option value="{{row.0}}">{{row.13}}</option>
                         </select>
                     </div>
                 </div>
@@ -61,32 +62,65 @@
                 <div class="row gap">
                     <div class="col">
                         <select id="subcategoryid" name="subcategoryid" class="form-control">
-                            <option value="{{row.1}}">{{row.8}}</option>
+                            <option value="{{row.1}}">{{row.14}}</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="row gap">
                     <div class="col">
-                        <input type="text" value="{{row.3}}" name="productname" class="form-control"
+                        <select id="productid" name="productid" class="form-control">
+                            <option value="{{row.2}}">{{row.15}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row gap">
+                    <div class="col">
+                        <input type="text" value="{{row.4}}" name="finalproductname" class="form-control"
                             placeholder="Product Name">
                     </div>
                 </div>
 
                 <div class="row gap">
                     <div class="col">
-                        <input type="text" value="{{row.4}}" name="description" class="form-control"
-                            placeholder="Description">
+                        <input type="text" value="{{row.5}}" name="size" class="form-control" placeholder="Size">
+                    </div>
+
+                    <div class="col">
+                        <input type="text" value="{{row.6}}" name="sizeunit" class="form-control"
+                            placeholder="Size Unit">
                     </div>
                 </div>
 
                 <div class="row gap">
                     <div class="col">
-                        <input type="text" value="{{row.5}}" name="gst" class="form-control" placeholder="GST">
+                        <input type="text" value="{{row.7}}" name="weight" class="form-control" placeholder="weight">
+                    </div>
+
+                    <div class="col">
+                        <input type="text" value="{{row.8}}" name="weightunit" class="form-control"
+                            placeholder="Weight Unit">
+                    </div>
+                </div>
+
+                <div class="row gap">
+                    <div class="col">
+                        <input type="text" value="{{row.9}}" name="color" class="form-control" placeholder="color">
+                    </div>
+
+                    <div class="col">
+                        <input type="text" value="{{row.10}}" name="price" class="form-control" placeholder="Price">
+                    </div>
+                </div>
+
+                <div class="row gap">
+                    <div class="col">
+                        <input type="text" name="stock" value="0" class="form-control" placeholder="Stock">
                     </div>
 
                     <div class="col btnstyle" style="flex-direction: row;">
-                        &nbsp; <img src="/static/{{row.6}}" id="pic" width="50">
+                        &nbsp; <img src="/static/{{row.12}}" id="pic" width="50">
                     </div>
                 </div>
 

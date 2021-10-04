@@ -1,5 +1,5 @@
 from django.shortcuts import render
-# import Pool
+# from . import Pool
 
 def AdminLogin(request):
     return render(request,'AdminLogin.html') 

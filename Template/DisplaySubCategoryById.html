@@ -32,7 +32,7 @@
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- <script src="/static/javascript/category.js"></script> -->
+<script src="/static/javascript/category.js"></script>
 
 <head>
     <meta charset="UTF-8">
@@ -41,7 +41,7 @@
 
 <body style="background-color: #dfe6e9;">
 <form action="/editdeletesubcategoryrecord">
-    <input type="hidden" value="{{row.0}}" name="subcategoryid">
+    <input type="hidden" value="{{row.1}}" name="subcategoryid">
     <div class="root">
         <div class="myframe">
             <div class="row"
@@ -53,8 +53,7 @@
             <div class="row">
                 <div class="col">
                     <select id="categoryid" name="categoryid" class="form-control" >
-                        <!-- <option value="{{row.5}}"></option> -->
-                        <option>{{row.5}}</option>
+                        <option value="{{row.0}}">{{row.5}}</option>
                     </select>
                 </div>
                 </div>
