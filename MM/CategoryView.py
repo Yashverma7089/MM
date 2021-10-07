@@ -62,6 +62,7 @@ def EditDeleteCategoryRecord(request):
         try:
             dbe, cmd = Pool.ConnectionPolling()
             q = "update categories set categoryname = '{}' where categoryid = {}".format(categoryname, categoryid)
+            print(q)
             cmd.execute(q)
             dbe.commit()
             row = cmd.fetchone()
@@ -96,12 +97,12 @@ def EditCategoryPicture(request):
 
 def SaveEditCategoryPicture(request):
     try:
-       categoryid = request.POST['categoryid']
+       categoryid1 = request.POST['categoryid1']
        oldpicture = request.POST['oldpicture']
        picture = request.FILES['picture']
        filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
 
-       q = "update categories set icon = '{}' where categoryid = {}".format(filename,categoryid)
+       q = "update categories set icon = '{}' where categoryid = {}".format(filename,categoryid1)
        print(q)
        dbe, cmd = Pool.ConnectionPolling()
        cmd.execute(q)

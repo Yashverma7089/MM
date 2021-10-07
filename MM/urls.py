@@ -22,6 +22,7 @@ from . import CategoryView
 from . import SubCategoryView
 from . import ProductView
 from . import FinalProductView
+from . import SupplierView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -74,6 +75,11 @@ urlpatterns = [
     path('editdeletefinalproductrecord/',FinalProductView.EditDeleteFinalProductRecord),
     path('editfinalproductpicture/',FinalProductView.EditFinalProductPicture),
     path('saveeditfinalproductpicture',FinalProductView.SaveEditFinalProductPicture),
+
+    # Supplier Urls
+    path('supplierinterface/',SupplierView.SupplierInterface),
+    path('suppliersubmit/',SupplierView.SupplierSubmit),
+    path('displayallsupplier/',SupplierView.DisplayAllSupplier),
 
     path('fetchallstates/',StateCityView.FetchAllStates),
     path('fetchallcities/',StateCityView.FetchAllCities),

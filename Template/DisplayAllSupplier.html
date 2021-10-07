@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">
+        .root {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #dfe6e9;
+            padding: 20px;
+        }
+    
+        .myframe {
+            width: 90%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+
+    <title>Material Management [All Supplier]</title>
+</head>
+
+<body>
+    <div class="root">
+        <div class="myframe">
+            <div class="row"
+                style="display: flex; align-items:center; font-size:20px; letter-spacing:2px; font-weight:bold; justify-content: center;">
+                <img src="/static/supplier.png" width="50">
+                &nbsp; List of Suppliers
+            </div>
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th>Supplier Name</th>
+                    <th>Landline Number</th>
+                    <th>Supplier Address</th>
+                    <th>Contact Detals</th>
+                </tr>
+                {% for row in rows %}
+                <tr>
+                    <th scope="row">{{row.0}}</th>
+                    <td>{{row.1}}</td>
+                    <td>{{row.2}}</td>
+                    <td>{{row.5}} <br> {{row.8}}, {{row.9}}</td>
+                    <td>{{row.3}} <br>
+                        {{row.4}}</td>
+                    <!-- <td><a href="/displayemployeebyid?empid={{row.0}}"><img src="/static/edit.png" width="40%"></a></td> -->
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

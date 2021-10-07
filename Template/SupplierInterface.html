@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/static/javascript/project.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+
+    <style type="text/css">
+        .root {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #dfe6e9;
+            padding: 20px;
+        }
+    
+        .myframe {
+            width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    
+        .gap {
+            margin-top: 10px;
+        }
+    
+        .btnstyle{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+
+    <title>Material Management [Supplier]</title>
+</head>
+
+<body style="background-color: #dfe6e9;">
+<form action="/suppliersubmit"> 
+    <div class="root">
+        <div class="myframe">
+            <div class="row"
+                style="display: flex; align-items:center; font-size:15px; letter-spacing:2px; font-weight:bold; padding-left : 20px; margin-bottom: 10px;">
+                <img src="/static/Supplier.png" width="40">
+               &nbsp; Supplier Register
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <input type="text" name="suppliername" class="form-control" placeholder="Supplier Name">
+                </div>
+            </div>
+            
+            
+            <div class="row gap">
+                <div class="col">
+                    <input type="text" name="landlinenumber" class="form-control" placeholder="Landline Number">
+                </div>
+            </div>
+
+            <div class="row gap">
+                <div class="col">
+                    <input type="text" name="mobilenumber" class="form-control" placeholder="Mobile Number">
+                </div>
+            </div>
+
+            <div class="row gap">
+                <div class="col">
+                    <input type="email" name="emailid" class="form-control" placeholder="Email Address">
+                </div>
+            </div>
+            
+            <div class="row gap">
+                <div class="col">
+                    <input type="text" name="address" class="form-control" placeholder="Supplier Address">
+                </div>
+            </div>
+
+            <div class="row gap">
+                <div class="col">
+                    <select class="form-control" name="state" id="state">
+                        <option>-State-</option>
+                    </select>
+                </div>
+
+                <div class="col">
+                    <select class="form-control" name="city" id="city">
+                        <option>-City-</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row gap">
+                <div class="col btnstyle" >
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Save</button>
+                </div>
+
+                <div class="col btnstyle">
+                    <button type="reset" class="btn btn-primary w-100" >Reset</button> 
+                </div>
+            </div>
+
+            <div class="row gap">
+                {% ifequal msg "Record Successfully Submitted" %}
+                <div class="col btnstyle" style="font-size: 18px; font-weight:bold; color: green;" >
+                    {{msg}}
+                </div>
+                {% endifequal %}
+
+                {% ifequal msg "Fail to Submit Record" %}
+                <div class="col btnstyle" style="font-size: 18px; font-weight:bold; color: red;" >
+                    {{msg}}
+                </div>
+                {% endifequal %}
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+
+</html>
