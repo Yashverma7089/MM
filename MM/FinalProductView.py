@@ -116,12 +116,12 @@ def EditFinalProductPicture(request):
 
 def SaveEditFinalProductPicture(request):
     try:
-       finalproductid = request.POST['finalproductid']
+       finalproductid1 = request.POST['finalproductid1']
        oldpicture = request.POST['oldpicture']
        picture = request.FILES['picture']
        filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
 
-       q = "update finalproducts set picture = '{}' where finalproductid = {}".format(filename,finalproductid)
+       q = "update finalproducts set picture = '{}' where finalproductid = {}".format(filename,finalproductid1)
        print(q)
        dbe, cmd = Pool.ConnectionPolling()
        cmd.execute(q)

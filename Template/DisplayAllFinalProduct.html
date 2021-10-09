@@ -1,10 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/static/javascript/product.js"></script>
 
 <head>
     <meta charset="UTF-8">
@@ -19,12 +21,21 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
             background-color: #dfe6e9;
             padding: 20px;
         }
-    
+
         .myframe {
-            width: 95%; 
+            width: 95%;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
+        }
+
+        .gap {
+            margin-top: 10px;
+        }
+
+        .btnstyle {
+            display: flex;
+            justify-content: center;
         }
     </style>
 
@@ -35,10 +46,10 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
     <div class="root">
         <div class="myframe">
             <div class="row"
-            style="display: flex; align-items:center; font-size:20px; letter-spacing:2px; font-weight:bold; justify-content: center;">
-            <img src="/static/product.png" width="30" style="padding-right: 5px;">
-            List of Products
-        </div>
+                style="display: flex; align-items:center; font-size:20px; letter-spacing:2px; font-weight:bold; justify-content: center;">
+                <img src="/static/product.png" width="30" style="padding-right: 5px;">
+                List of Products
+            </div>
             <table class="table">
                 <tr>
                     <th>#</th>
@@ -64,14 +75,250 @@ integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg
                     <td>{{row.9}}</td>
                     <td> &#8377; {{row.10}}</td>
                     <td>{{row.11}}</td>
-                    <td><a href="/editfinalproductpicture?finalproductid={{row.3}}&finalproductname={{row.4}}&picture={{row.12}}"><img src="/static/{{row.12}}" width="50px"></a></td>
-                    <!-- <td><a href="/displayproductbyid?productid={{row.2}}">Edit/Delete</a></td> -->
-                    <td><a href="/displayfinalproductbyid?finalproductid={{row.3}}"><img src="/static/edit.png" width="40px"></a></td>
+                    <td><a a class="button is-white modal-buttonforimg" data="{{row}}" data-target="#modal1"><img
+                                src="/static/{{row.12}}" width="50px"></a></td>
+                    <!-- <td><a href="/editfinalproductpicture?finalproductid={{row.3}}&finalproductname={{row.4}}&picture={{row.12}}"><img src="/static/{{row.12}}" width="50px"></a></td> -->
+                    <td><a a class="button is-primary modal-button" data="{{row}}" data-target="#modal">Edit/Delete</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content"
+            style="background-color: #d3e4eb; width:600px; background:white; border-radius:10px;">
+
+            <body style="background-color: #dfe6e9;">
+                <form action="/editdeletefinalproductrecord">
+                    <input type="hidden" id="finalproductid" name="finalproductid">
+                    <div class="root">
+                        <div class="myframe">
+                            <div class="row"
+                                style="display: flex; align-items:center; font-size:14px; letter-spacing:2px; font-weight:bold; padding-left : 20px; margin-bottom: 10px;">
+                                <img src="/static/product.png" width="30" style="padding-right: 5px;">
+                                Update Products
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <select id="categoryid" name="categoryid" class="form-control">
+                                        <option value="{{row.0}}">-Select Category-</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <select id="subcategoryid" name="subcategoryid" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <select id="productid" name="productid" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <input type="text" id="finalproductname" name="finalproductname"
+                                        class="form-control" placeholder="Product Name">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <input type="text" id="size" name="size" class="form-control" placeholder="Size">
+                                </div>
+
+                                <div class="col">
+                                    <input type="text" id="sizeunit" name="sizeunit" class="form-control"
+                                        placeholder="Size Unit">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <input type="text" id="weight" name="weight" class="form-control"
+                                        placeholder="weight">
+                                </div>
+
+                                <div class="col">
+                                    <input type="text" id="weightunit" name="weightunit" class="form-control"
+                                        placeholder="Weight Unit">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <input type="text" id="color" name="color" class="form-control" placeholder="color">
+                                </div>
+
+                                <div class="col">
+                                    <input type="text" id="price" name="price" class="form-control" placeholder="Price">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <input type="text" name="stock" id="stock" value="0" class="form-control"
+                                        placeholder="Stock">
+                                </div>
+
+                                <div class="col btnstyle" style="flex-direction: row;">
+                                    &nbsp; <img src="/static/{{row.12}}" id="pic" width="50">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col btnstyle">
+                                    <button type="submit" name="btn" value="Edit" class="btn btn-primary"
+                                        style="width: 100%;">Edit</button>
+                                </div>
+
+                                <div class="col btnstyle">
+                                    <button type="submit" name="btn" value="Delete"
+                                        class="btn btn-primary w-100">Delete</button>
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col btnstyle" style="font-size: 18px; font-weight:bold;">
+                                    {{msg}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </body>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <script>
+        function setData(data) {
+            data = data.replace("(", "")
+            data = data.replace(")", "")
+            data = data.replaceAll("'", "")
+            data = data.split(",")
+            return data
+        }
+
+        $(".modal-button").click(function () {
+            var target = $(this).data("target");
+            var data = $(this).attr('data')
+            data = setData(data)
+            $('#categoryid').val(data[0].trim())
+            $('#subcategoryid').append($('<option>').text(data[14]).val(data[1]))
+            $('#productid').append($('<option>').text(data[15]).val(data[2]))
+            $('#finalproductid').val(data[3].trim())
+            $('#finalproductname').val(data[4].trim())
+            $('#size').val(data[5].trim())
+            $('#sizeunit').val(data[6].trim())
+            $('#weight').val(data[7].trim())
+            $('#weightunit').val(data[8].trim())
+            $('#color').val(data[9].trim())
+            $('#price').val(data[10].trim())
+            $('#stock').val(data[11].trim())
+            $('#pic').attr('src', '/static/' + (data[12].trim()))
+            $("html").addClass("is-clipped");
+            $(target).addClass("is-active");
+        });
+
+        $(".modal-close").click(function () {
+            $("html").removeClass("is-clipped");
+            $(this).parent().removeClass("is-active");
+        });
+    </script>
+
+
+    <div id="modal1" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content"
+            style="background-color: #dfe6e9; width:600px; background:white; border-radius:10px;">
+
+            <body style="background-color: #dfe6e9;">
+                <form action="/saveeditfinalproductpicture" method="POST" enctype="multipart/form-data"> {% csrf_token
+                    %}
+                    <input type="hidden" id="finalproductid1" name="finalproductid1">
+                    <input type="hidden" id="oldpicture" name="oldpicture">
+                    <div class="root">
+                        <div class="myframe">
+                            <center>
+                                <div class="row"
+                                    style="display: flex; align-items:center; justify-content: center; font-size:25px; letter-spacing:2px; font-weight:bold; padding-left : 20px; margin-bottom: 10px;">
+                                    Edit Final Product Picture
+                                </div>
+                                <div id="finalproductname1" name="finalproductname1" class="row"
+                                    style="display: flex; align-items:center; justify-content: center; font-size:20px; font-weight:bold;">
+
+                                </div>
+
+
+                                <div>
+                                    <img name="oldpic" id="oldpic" width="30%" style="margin-top: 10px;">
+                                </div>
+                                <b> Select Image You Want to Replace </b>
+
+                                <div class="col btnstyle" style="flex-direction: row; margin-top: 10px;">
+                                    <input type="file" id="picture1" accept="image/*" name="picture"
+                                        class="form-control" placeholder="Picture">
+                                    &nbsp; <img src="/static/noimage.png" id="pic1" width="50">
+                                </div>
+                                <div class="row gap">
+                                    <div class="col btnstyle">
+                                        <input type="submit" value="Save Image" class="btn btn-primary w-50">
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </form>
+            </body>
+
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+
+    <script>
+        function setData(data) {
+            data = data.replace("(", "")
+            data = data.replace(")", "")
+            data = data.replaceAll("'", "")
+            data = data.split(",")
+            return data
+        }
+
+        $(".modal-buttonforimg").click(function () {
+            var target = $(this).data("target");
+            var data = $(this).attr('data')
+            data = setData(data)
+            $('#finalproductid1').val(data[3])
+            $('#finalproductname1').html(data[4].trim())
+            $('#oldpic').attr('src', '/static/' + (data[12].trim()))
+
+
+            $("html").addClass("is-clipped");
+            $(target).addClass("is-active");
+        });
+
+        $('#picture1').change(function () {
+            var file = picture1.files[0]
+            pic1.src = URL.createObjectURL(file)
+        })
+
+        $(".modal-close").click(function () {
+            $("html").removeClass("is-clipped");
+            $(this).parent().removeClass("is-active");
+        });
+    </script>
+
 </body>
 
 </html>
