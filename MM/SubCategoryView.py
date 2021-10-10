@@ -100,12 +100,12 @@ def EditSubCategoryPicture(request):
 
 def SaveEditSubCategoryPicture(request):
     try:
-       subcategoryid = request.POST['subcategoryid']
+       subcategoryid1 = request.POST['subcategoryid1']
        oldpicture = request.POST['oldpicture']
        picture = request.FILES['picture']
        filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
 
-       q = "update subcategory set icon = '{}' where subcategoryid = {}".format(filename,subcategoryid)
+       q = "update subcategory set icon = '{}' where subcategoryid = {}".format(filename,subcategoryid1)
        print(q)
        dbe, cmd = Pool.ConnectionPolling()
        cmd.execute(q)

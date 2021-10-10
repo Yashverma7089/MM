@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from . import Pool
 
 def SupplierInterface(request):
@@ -36,3 +37,15 @@ def DisplayAllSupplier(request):
     except Exception as e:
         print(e)
         return render(request,"DisplayAllSupplier.html",{'rows' : []})
+
+def GetSupplierJSON(request):
+    try:
+        dbe, cmd = Pool.ConnectionPolling()
+        q = "select * from supplier"
+        cmd.execute(q)
+        rows = cmd.fetchall()
+        dbe.close()
+        return JsonResponse(rows,safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse(rows,safe=False)

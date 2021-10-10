@@ -122,12 +122,12 @@ def EditEmployeePicture(request):
         
 def SaveEditPicture(request):
     try:
-       empid = request.POST['empid']
+       empid1 = request.POST['empid1']
        oldpicture = request.POST['oldpicture']
        picture = request.FILES['picture']
        filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
 
-       q = "update employee set picture = '{}' where employeeid = {}".format(filename,empid)
+       q = "update employee set picture = '{}' where employeeid = {}".format(filename,empid1)
        print(q)
        dbe, cmd = Pool.ConnectionPolling()
        cmd.execute(q)

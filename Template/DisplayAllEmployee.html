@@ -1,31 +1,44 @@
-<style type="text/css">
-    .root {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #dfe6e9;
-        padding: 20px;
-    }
-
-    .myframe {
-        width: 90%;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-    }
-</style>
-
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/static/javascript/project.js"></script>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style type="text/css">
+        .root {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #dfe6e9;
+            padding: 20px;
+        }
+
+        .myframe {
+            width: 90%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .gap {
+            margin-top: 10px;
+        }
+
+        .btnstyle {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+
     <title>Material Management [All Employee]</title>
 </head>
 
@@ -57,15 +70,271 @@
                         {{row.14}}, {{row.15}}</td>
                     <td>{{row.8}}</td>
                     <td>{{row.9}} <br> {{row.10}}</td>
-                    <td><a
-                            href="/editemployeepicture?empid={{row.0}}&firstname={{row.1}}&lastname={{row.2}}&picture={{row.12}}"><img src="/static/{{row.12}}" width="50px"></a> <br> {{row.11}}</td>
-                    <!-- <td><a href="/displayemployeebyid?empid={{row.0}}">Edit/Delete</a></td> -->
-                    <td><a href="/displayemployeebyid?empid={{row.0}}"><img src="/static/edit.png" width="40%"></a></td>
+                    <td><a class="button is-white modal-buttonforimg" data="{{row}}" data-target="#modal1""><img
+                                src=" /static/{{row.12}}" width="50px"></a> <br> {{row.11}}</td>
+                    <td><a class="button is-primary modal-button" data="{{row}}" data-target="#modal">Edit/Delete</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content" style="background-color: #d3e4eb; width:600px; border-radius:10px;">
+
+            <body style="background-color: #dfe6e9;">
+                <form action="/editdeleteemployeerecord">
+                    <input type="hidden" id="empid" name="empid">
+                    <div class="root">
+                        <div class="myframe">
+                            <div class="row"
+                                style="display: flex; align-items:center; font-size:14px; letter-spacing:2px; font-weight:bold; padding-left : 20px; margin-bottom: 10px;">
+                                <img src="/static/employee.png" width="30">
+                                Employee Register
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <input type="text" id="firstname" name="firstname" class="form-control"
+                                        placeholder="First Name">
+                                </div>
+
+                                <div class="col">
+                                    <input type="text" id="lastname" name="lastname" class="form-control"
+                                        placeholder="Last Name">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col" style="display: flex; justify-content: center; align-items:center;">
+
+                                    {% ifequal row.3 "Male" %}
+                                    <div id="gender">
+                                        <input type="radio" value="Male" name="gender"><i class="fas fa-male"
+                                            style="color:darkviolet; margin-left: 10px;margin-right: 30px; font-size: 25px;"></i>
+                                        <input type="radio" value="Female" name="gender"><i class="fas fa-female"
+                                            style="color:deeppink; margin-left: 10px;margin-right: 30px; font-size: 25px;"></i>
+                                    </div>
+                                    {% endifequal %}
+
+                                    {% ifequal row.3 "Female" %}
+                                    <div id="gender1">
+                                        <input type="radio" value="Male" name="gender"><i class="fas fa-male"
+                                            style="color:darkviolet; margin-left: 10px;margin-right: 30px; font-size: 25px;"></i>
+                                        <input type="radio" checked value="Female" name="gender"><i
+                                            class="fas fa-female"
+                                            style="color:deeppink; margin-left: 10px;margin-right: 30px; font-size: 25px;"></i>
+                                    </div>
+                                    {% endifequal %}
+                                </div>
+
+                                <div class="col">
+                                    <input type="date" id="birthdate" class="form-control" name="birthdate"
+                                        placeholder="Birth Date">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <input type="text" id="paddress" name="paddress" class="form-control"
+                                        placeholder="Permanent Address">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <select class="form-control" name="state" id="state">
+                                        <option value="{{row.6}}">-Select State-</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <select class="form-control" name="city" id="city">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <input type="text" id="caddress" name="caddress" class="form-control"
+                                        placeholder="Current Address">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <input type="email" id="emailaddress" name="emailaddress" class="form-control"
+                                        placeholder="Email Address">
+                                </div>
+
+                                <div class="col">
+                                    <input type="text" id="mobilenumber" name="mobilenumber" class="form-control"
+                                        placeholder="Mobile Number">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col">
+                                    <input type="text" id="designation" name="designation" class="form-control"
+                                        placeholder="Designation">
+                                </div>
+
+                                <div class="col btnstyle" style="flex-direction: row;">
+                                    &nbsp; <img id="pic" width="50">
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col btnstyle">
+                                    <button type="submit" name="btn" value="Edit" class="btn btn-primary"
+                                        style="width: 100%;">Edit</button>
+                                </div>
+
+                                <div class="col btnstyle">
+                                    <button type="submit" name="btn" value="Delete"
+                                        class="btn btn-primary w-100">Delete</button>
+                                </div>
+                            </div>
+
+                            <div class="row gap">
+                                <div class="col btnstyle" style="font-size: 18px; font-weight:bold;">
+                                    {{msg}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </body>
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+    <script>
+        function setData(data) {
+            data = data.replace("(", "")
+            data = data.replace(")", "")
+            data = data.replaceAll("'", "")
+            data = data.split(",")
+            return data
+        }
+
+        $(".modal-button").click(function () {
+            var target = $(this).data("target");
+            var data = $(this).attr('data')
+            data = setData(data)
+            $('#empid').val(data[0].trim())
+            $('#firstname').val(data[1].trim())
+            $('#lastname').val(data[2].trim())
+            $('#gender').val(data[3].trim())
+            $('#gender1').val(data[3].trim())
+            $('#birthdate').val(data[4].trim())
+            $('#paddress').val(data[5].trim())
+            $('#state').val(data[6].trim())
+            $('#city').append($('<option>').text(data[14]).val(data[7]))
+            $('#caddress').val(data[8].trim())
+            $('#emailaddress').val(data[9].trim())
+            $('#mobilenumber').val(data[10].trim())
+            $('#designation').val(data[11].trim())
+            $('#pic').attr('src', '/static/' + (data[12].trim()))
+            $("html").addClass("is-clipped");
+            $(target).addClass("is-active");
+        });
+
+        $(".modal-close").click(function () {
+            $("html").removeClass("is-clipped");
+            $(this).parent().removeClass("is-active");
+        });
+    </script>
+
+    <div id="modal1" class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-content" style="background-color: #dfe6e9; width:600px; border-radius:10px;">
+
+            <body style="background-color: #dfe6e9;">
+                <form action="/saveeditpicture" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                    <input type="hidden" id="empid1" name="empid1">
+                    <input type="hidden" id="oldpicture" name="oldpicture">
+                    <div class="root">
+                        <div class="myframe">
+                            <center>
+                                <div class="row"
+                                    style="display: flex; align-items:center; justify-content: center; font-size:25px; letter-spacing:2px; font-weight:bold; padding-left : 20px; margin-bottom: 10px;">
+                                    Edit Employee Picture
+                                </div>
+                                <div class="row"
+                                    style="display: flex; align-items:center; justify-content: center; font-size:20px; font-weight:bold;">
+                                    <span id="firstname1" name="firstname1"></span>
+                                    &nbsp;
+                                    <span id="lastname1" name="lastname1"></span>
+                                </div>
+
+                                <div id="lastname1" name="lastname1" class="row"
+                                    style="display: flex; align-items:center; justify-content: center; font-size:20px; font-weight:bold;">
+
+                                </div>
+
+                                <div>
+                                    <img name="oldpic" id="oldpic" width="30%" style="margin-top: 10px;">
+                                </div>
+                                <b> Select Image You Want to Replace </b>
+
+                                <div class="col btnstyle" style="flex-direction: row; margin-top: 10px;">
+                                    <input type="file" id="picture1" accept="image/*" name="picture"
+                                        class="form-control" placeholder="Picture">
+                                    &nbsp; <img src="/static/noimage.png" id="pic1" width="50">
+                                </div>
+                                <div class="row gap">
+                                    <div class="col btnstyle">
+                                        <input type="submit" value="Save Image" class="btn btn-primary w-50">
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
+                </form>
+            </body>
+
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
+
+    <script>
+        function setData(data) {
+            data = data.replace("(", "")
+            data = data.replace(")", "")
+            data = data.replaceAll("'", "")
+            data = data.split(",")
+            return data
+        }
+
+
+        $(".modal-buttonforimg").click(function () {
+            var target = $(this).data("target");
+            var data = $(this).attr('data')
+            data = setData(data)
+            $('#empid1').val(data[0])
+            $('#firstname1').html(data[1].trim())
+            $('#lastname1').html(data[2].trim())
+            $('#oldpic').attr('src', '/static/' + (data[12].trim()))
+
+
+            $("html").addClass("is-clipped");
+            $(target).addClass("is-active");
+        });
+
+        $('#picture1').change(function () {
+            var file = picture1.files[0]
+            pic1.src = URL.createObjectURL(file)
+        })
+        $(".modal-close").click(function () {
+            $("html").removeClass("is-clipped");
+            $(this).parent().removeClass("is-active");
+        });
+    </script>
+
 </body>
 
 </html>

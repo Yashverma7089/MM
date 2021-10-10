@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from . import Pool
 import uuid
 import os
@@ -136,3 +137,16 @@ def SaveEditFinalProductPicture(request):
     except Exception as e:
        print("Error :",e)
        return DisplayAllFinalProduct(request)
+
+def GetFinalProductJSON(request):
+  try:
+    dbe,cmd = Pool.ConnectionPolling()
+    productid = request.GET['productid']
+    q = "select * from finalproducts where productid= {}".format(productid)
+    cmd.execute(q)
+    rows = cmd.fetchall()
+    dbe.close()
+    return JsonResponse(rows,safe= False)
+  except Exception as e:
+    print(e)
+    return JsonResponse([],safe= False)

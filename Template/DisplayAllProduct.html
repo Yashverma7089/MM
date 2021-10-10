@@ -72,7 +72,6 @@
                     <td>{{row.4}}</td>
                     <td>{{row.5}}%</td>
                     <td><a class="button is-white modal-buttonforimg" data="{{row}}" data-target="#modal1"><img src="/static/{{row.6}}" width="50px"></a></td>
-                    <!-- <td><a href="/editproductpicture?productid={{row.2}}&productname={{row.3}}&picture={{row.6}}"><img src="/static/{{row.6}}" width="50px"></a></td> -->
                     <td><a class="button is-primary modal-button" data="{{row}}" data-target="#modal">Edit/Delete</a></td>
                 </tr>
                 {% endfor %}
@@ -83,7 +82,7 @@
 <div id="modal" class="modal">
     <div class="modal-background"></div>
     <div class="modal-content"
-        style="background-color: #d3e4eb; width:600px; background:white; border-radius:10px;">
+        style="background-color: #d3e4eb; width:600px; border-radius:10px;">
         <body style="background-color: #dfe6e9;">
             <form action="/editdeleteproductrecord">
                 <input type="hidden" id="productid" name="productid">
@@ -194,7 +193,7 @@
 <div id="modal1" class="modal">
     <div class="modal-background"></div>
     <div class="modal-content"
-        style="background-color: #dfe6e9; width:600px; background:white; border-radius:10px;">
+        style="background-color: #dfe6e9; width:600px; border-radius:10px;">
 
         <body style="background-color: #dfe6e9;">
             <form action="/saveeditproductpicture" method="POST" enctype="multipart/form-data"> {% csrf_token %}

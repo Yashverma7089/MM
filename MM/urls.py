@@ -23,6 +23,7 @@ from . import SubCategoryView
 from . import ProductView
 from . import FinalProductView
 from . import SupplierView
+from . import PurchaseView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -75,12 +76,21 @@ urlpatterns = [
     path('editdeletefinalproductrecord/',FinalProductView.EditDeleteFinalProductRecord),
     path('editfinalproductpicture/',FinalProductView.EditFinalProductPicture),
     path('saveeditfinalproductpicture',FinalProductView.SaveEditFinalProductPicture),
+    path('getfinalproductjson/',FinalProductView.GetFinalProductJSON),
 
     # Supplier Urls
     path('supplierinterface/',SupplierView.SupplierInterface),
     path('suppliersubmit/',SupplierView.SupplierSubmit),
     path('displayallsupplier/',SupplierView.DisplayAllSupplier),
+    path('getsupplierjson/',SupplierView.GetSupplierJSON), 
 
+    # Purchase Urls
+    path('purchaseinterface/',PurchaseView.PurchaseInterface),
+    path('purchaseproductsubmit',PurchaseView.PurchaseProductSubmit),
+    path('displayallpurchaseproduct/',PurchaseView.DisplayAllPurchaseProduct),
+    path('editdeletepurchaseproductrecord/',PurchaseView.EditDeletePurchaseProductRecord),
+
+    # State City Urls
     path('fetchallstates/',StateCityView.FetchAllStates),
     path('fetchallcities/',StateCityView.FetchAllCities),
 ]
