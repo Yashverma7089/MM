@@ -8,29 +8,29 @@ $(document).ready(function () {
 
     })
 
-    $('#categoryid').change(function() {
+    $('#categoryid').change(function () {
         $('#subcategoryid').empty()
-        $.getJSON("/getsubcategoryjson", { ajax: true, categoryid: $('#categoryid').val()}, function (data) {
+        $.getJSON("/getsubcategoryjson", { ajax: true, categoryid: $('#categoryid').val() }, function (data) {
             $('#subcategoryid').append($('<option>').text('-Select Sub Category-'))
             $.each(data, function (index, item) {
                 $('#subcategoryid').append($('<option>').text(item[2]).val(item[1]))
             })
-    
+
         })
-    
+
     })
-    
-    $('#subcategoryid').change(function() {
+
+    $('#subcategoryid').change(function () {
         $('#productid').empty()
-        $.getJSON("/getproductjson", { ajax: true,subcategoryid: $('#subcategoryid').val()}, function (data) {
+        $.getJSON("/getproductjson", { ajax: true, subcategoryid: $('#subcategoryid').val() }, function (data) {
             $('#productid').append($('<option>').text('-Select Product-'))
             $.each(data, function (index, item) {
                 $('#productid').append($('<option>').text(item[3]).val(item[2]))
             })
-    
+
         })
-    
+
     })
 
-    
+
 })

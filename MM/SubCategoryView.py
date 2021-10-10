@@ -1,35 +1,39 @@
-from django.shortcuts import render 
+from django.shortcuts import render
 from django.http import JsonResponse
 from . import Pool
 import uuid
 import os
 
+
 def SubCategoryInterface(request):
-    return render(request,"SubCategoryInterface.html")
+    return render(request, "SubCategoryInterface.html")
+
 
 def SubCategorySubmit(request):
     try:
-       categoryid = request.POST['categoryid']
-       categoryname = request.POST['subcategoryname']
-       description = request.POST['description']
-       
-       icon = request.FILES['icon']
-       filename = str(uuid.uuid4())+icon.name[icon.name.rfind('.'):]
+        categoryid = request.POST['categoryid']
+        categoryname = request.POST['subcategoryname']
+        description = request.POST['description']
 
-       q = "insert into subcategory (categoryid, subcategoryname, description, icon) values ({}, '{}', '{}', '{}')".format(categoryid, categoryname, description, filename)
-       print(q)
-       dbe, cmd = Pool.ConnectionPolling()
-       cmd.execute(q)
-       dbe.commit()
-       F = open("D:/MM/assets/"+filename,"wb")
-       for chunk in icon.chunks():
-           F.write(chunk)
-       F.close()
-       dbe.close()
-       return render(request, "SubCategoryInterface.html",{'msg':'Record Successfully Submitted'})
+        icon = request.FILES['icon']
+        filename = str(uuid.uuid4())+icon.name[icon.name.rfind('.'):]
+
+        q = "insert into subcategory (categoryid, subcategoryname, description, icon) values ({}, '{}', '{}', '{}')".format(
+            categoryid, categoryname, description, filename)
+        print(q)
+        dbe, cmd = Pool.ConnectionPolling()
+        cmd.execute(q)
+        dbe.commit()
+        F = open("D:/MM/assets/"+filename, "wb")
+        for chunk in icon.chunks():
+            F.write(chunk)
+        F.close()
+        dbe.close()
+        return render(request, "SubCategoryInterface.html", {'msg': 'Record Successfully Submitted'})
     except Exception as e:
-       print("Error :",e)
-       return render(request, "SubCategoryInterface.html",{'msg':'Fail to Submit Record'})
+        print("Error :", e)
+        return render(request, "SubCategoryInterface.html", {'msg': 'Fail to Submit Record'})
+
 
 def DisplayAllSubCategory(request):
     try:
@@ -38,10 +42,11 @@ def DisplayAllSubCategory(request):
         cmd.execute(q)
         rows = cmd.fetchall()
         dbe.close()
-        return render(request,"DisplayAllSubCategory.html",{'rows' : rows})
+        return render(request, "DisplayAllSubCategory.html", {'rows': rows})
     except Exception as e:
         print(e)
-        return render(request,"DisplayAllSubCategory.html",{'rows' : []})
+        return render(request, "DisplayAllSubCategory.html", {'rows': []})
+
 
 def DisplaySubCategoryById(request):
     subcategoryid = request.GET['subcategoryid']
@@ -51,10 +56,11 @@ def DisplaySubCategoryById(request):
         cmd.execute(q)
         row = cmd.fetchone()
         dbe.close()
-        return render(request,"DisplaySubCategoryById.html",{'row' : row})
+        return render(request, "DisplaySubCategoryById.html", {'row': row})
     except Exception as e:
         print(e)
-        return render(request,"DisplaySubCategoryById.html",{'row' : []})
+        return render(request, "DisplaySubCategoryById.html", {'row': []})
+
 
 def EditDeleteSubCategoryRecord(request):
     btn = request.GET['btn']
@@ -65,7 +71,8 @@ def EditDeleteSubCategoryRecord(request):
         description = request.GET['description']
         try:
             dbe, cmd = Pool.ConnectionPolling()
-            q = "update subcategory set categoryid = {}, subcategoryname = '{}', description = '{}' where subcategoryid = {}".format(categoryid, categoryname, description, subcategoryid)
+            q = "update subcategory set categoryid = {}, subcategoryname = '{}', description = '{}' where subcategoryid = {}".format(
+                categoryid, categoryname, description, subcategoryid)
             cmd.execute(q)
             dbe.commit()
             row = cmd.fetchone()
@@ -74,11 +81,12 @@ def EditDeleteSubCategoryRecord(request):
         except Exception as e:
             print(e)
             return DisplayAllSubCategory(request)
-    
+
     elif(btn == "Delete"):
         try:
             dbe, cmd = Pool.ConnectionPolling()
-            q = "delete from subcategory where subcategoryid = {}".format(subcategoryid)
+            q = "delete from subcategory where subcategoryid = {}".format(
+                subcategoryid)
             cmd.execute(q)
             dbe.commit()
             row = cmd.fetchone()
@@ -87,48 +95,53 @@ def EditDeleteSubCategoryRecord(request):
         except Exception as e:
             print(e)
             return DisplayAllSubCategory(request)
+
 
 def EditSubCategoryPicture(request):
     try:
         subcategoryid = request.GET['subcategoryid']
         subcategoryname = request.GET['subcategoryname']
         picture = request.GET['picture']
-        row = [subcategoryid,subcategoryname,picture]
-        return render(request,"EditSubCategoryPicture.html",{'row':row})
+        row = [subcategoryid, subcategoryname, picture]
+        return render(request, "EditSubCategoryPicture.html", {'row': row})
     except Exception as e:
-        return render(request,"EditSubCategoryPicture.html",{'row':[]})
+        return render(request, "EditSubCategoryPicture.html", {'row': []})
+
 
 def SaveEditSubCategoryPicture(request):
     try:
-       subcategoryid1 = request.POST['subcategoryid1']
-       oldpicture = request.POST['oldpicture']
-       picture = request.FILES['picture']
-       filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
+        subcategoryid1 = request.POST['subcategoryid1']
+        oldpicture = request.POST['oldpicture']
+        picture = request.FILES['picture']
+        filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
 
-       q = "update subcategory set icon = '{}' where subcategoryid = {}".format(filename,subcategoryid1)
-       print(q)
-       dbe, cmd = Pool.ConnectionPolling()
-       cmd.execute(q)
-       dbe.commit()
-       F = open("D:/MM/assets/"+filename,"wb")
-       for chunk in picture.chunks():
-           F.write(chunk)
-       F.close()
-       dbe.close()
-       os.remove('D:/MM/assets/'+oldpicture)
-       return DisplayAllSubCategory(request)
+        q = "update subcategory set icon = '{}' where subcategoryid = {}".format(
+            filename, subcategoryid1)
+        print(q)
+        dbe, cmd = Pool.ConnectionPolling()
+        cmd.execute(q)
+        dbe.commit()
+        F = open("D:/MM/assets/"+filename, "wb")
+        for chunk in picture.chunks():
+            F.write(chunk)
+        F.close()
+        dbe.close()
+        os.remove('D:/MM/assets/'+oldpicture)
+        return DisplayAllSubCategory(request)
     except Exception as e:
-       print("Error :",e)
-       return DisplayAllSubCategory(request)
+        print("Error :", e)
+        return DisplayAllSubCategory(request)
+
 
 def GetSubCategoryJSON(request):
-  try:
-    dbe,cmd = Pool.ConnectionPolling()
-    categoryid = request.GET['categoryid']
-    q = "select * from subcategory where categoryid = {}".format(categoryid)
-    cmd.execute(q)
-    rows = cmd.fetchall()
-    dbe.close()
-    return JsonResponse(rows,safe= False)
-  except Exception as e:
-    return JsonResponse([],safe= False)
+    try:
+        dbe, cmd = Pool.ConnectionPolling()
+        categoryid = request.GET['categoryid']
+        q = "select * from subcategory where categoryid = {}".format(
+            categoryid)
+        cmd.execute(q)
+        rows = cmd.fetchall()
+        dbe.close()
+        return JsonResponse(rows, safe=False)
+    except Exception as e:
+        return JsonResponse([], safe=False)

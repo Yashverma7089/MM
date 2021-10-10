@@ -18,7 +18,7 @@
         margin-top: 10px;
     }
 
-    .btnstyle{
+    .btnstyle {
         display: flex;
         justify-content: center;
     }
@@ -40,44 +40,46 @@
 </head>
 
 <body style="background-color: #dfe6e9;">
-<form action="/editdeletecategoryrecord"> 
-    <input type="hidden" value="{{row.0}}" name="categoryid">
-    <div class="root">
-        <div class="myframe">
-            <div class="row"
-                style="display: flex; align-items:center; font-size:14px; letter-spacing:2px; font-weight:bold; padding-left : 20px; margin-bottom: 10px;">
-                <img src="/static/categoryicon.png" width="30" style="padding-right: 5px;">
-                Update Product Category
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <input type="text" value="{{row.1}}" name="categoryname" class="form-control" placeholder="Category Name">
+    <form action="/editdeletecategoryrecord">
+        <input type="hidden" value="{{row.0}}" name="categoryid">
+        <div class="root">
+            <div class="myframe">
+                <div class="row"
+                    style="display: flex; align-items:center; font-size:14px; letter-spacing:2px; font-weight:bold; padding-left : 20px; margin-bottom: 10px;">
+                    <img src="/static/categoryicon.png" width="30" style="padding-right: 5px;">
+                    Update Product Category
                 </div>
 
-                <div class="col btnstyle" style="flex-direction: row;">
-                    &nbsp; <img src="/static/{{row.2}}" id="pic" width="50">
-                </div>
-            </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" value="{{row.1}}" name="categoryname" class="form-control"
+                            placeholder="Category Name">
+                    </div>
 
-            <div class="row gap">
-                <div class="col btnstyle" >
-                    <button type="submit" name="btn" value="Edit" class="btn btn-primary" style="width: 100%;">Edit</button>
+                    <div class="col btnstyle" style="flex-direction: row;">
+                        &nbsp; <img src="/static/{{row.2}}" id="pic" width="50">
+                    </div>
                 </div>
 
-                <div class="col btnstyle">
-                    <button type="submit" name="btn" value="Delete" class="btn btn-primary w-100" >Delete</button> 
-                </div>
-            </div>
+                <div class="row gap">
+                    <div class="col btnstyle">
+                        <button type="submit" name="btn" value="Edit" class="btn btn-primary"
+                            style="width: 100%;">Edit</button>
+                    </div>
 
-            <div class="row gap">
-                <div class="col btnstyle" style="font-size: 18px; font-weight:bold;" >
-                    {{msg}}
+                    <div class="col btnstyle">
+                        <button type="submit" name="btn" value="Delete" class="btn btn-primary w-100">Delete</button>
+                    </div>
+                </div>
+
+                <div class="row gap">
+                    <div class="col btnstyle" style="font-size: 18px; font-weight:bold;">
+                        {{msg}}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 </body>
 
 </html>

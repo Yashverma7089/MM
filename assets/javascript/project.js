@@ -8,19 +8,19 @@ $(document).ready(function () {
 
     })
 
-    $('#state').change(function() {
+    $('#state').change(function () {
         $('#city').empty()
-        $.getJSON("/fetchallcities", { ajax: true, stateid: $('#state').val()}, function (data) {
+        $.getJSON("/fetchallcities", { ajax: true, stateid: $('#state').val() }, function (data) {
             $('#city').append($('<option>').text('-City-'))
             $.each(data, function (index, item) {
                 $('#city').append($('<option>').text(item[2]).val(item[1]))
             })
-    
+
         })
-    
+
     })
- 
-    $('#picture').change(function() {
+
+    $('#picture').change(function () {
         var file = picture.files[0]
         pic.src = URL.createObjectURL(file)
     })

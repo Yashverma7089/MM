@@ -8,17 +8,17 @@ $(document).ready(function () {
 
     })
 
-    $('#categoryid').change(function() {
+    $('#categoryid').change(function () {
         $('#subcategoryid').empty()
-        $.getJSON("/getsubcategoryjson", { ajax: true, categoryid: $('#categoryid').val()}, function (data) {
+        $.getJSON("/getsubcategoryjson", { ajax: true, categoryid: $('#categoryid').val() }, function (data) {
             $('#subcategoryid').append($('<option>').text('-Select Sub Category-'))
             $.each(data, function (index, item) {
                 $('#subcategoryid').append($('<option>').text(item[2]).val(item[1]))
             })
-    
+
         })
-    
+
     })
 
-    
+
 })

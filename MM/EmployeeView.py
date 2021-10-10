@@ -4,44 +4,50 @@ import uuid
 import random
 import os
 
+
 def EmployeeLogin(request):
-    return render(request,'EmployeeLogin.html') 
+    return render(request, 'EmployeeLogin.html')
+
 
 def EmployeeInterface(request):
     return render(request, 'EmployeeInterface.html')
 
+
 def EmployeeSubmit(request):
     try:
-       firstname = request.POST['firstname']
-       lastname = request.POST['lastname']
-       gender = request.POST['gender']
-       birthdate = request.POST['birthdate']
-       paddress = request.POST['paddress']
-       state = request.POST['state']
-       city = request.POST['city']
-       caddress = request.POST['caddress']
-       emailaddress = request.POST['emailaddress']
-       mobilenumber = request.POST['mobilenumber']
-       designation = request.POST['designation']
-       
-       picture = request.FILES['picture']
-       filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
-       password = "".join(random.sample(['1','j','d','@','#','9','$'],k=7))
+        firstname = request.POST['firstname']
+        lastname = request.POST['lastname']
+        gender = request.POST['gender']
+        birthdate = request.POST['birthdate']
+        paddress = request.POST['paddress']
+        state = request.POST['state']
+        city = request.POST['city']
+        caddress = request.POST['caddress']
+        emailaddress = request.POST['emailaddress']
+        mobilenumber = request.POST['mobilenumber']
+        designation = request.POST['designation']
 
-       q = "insert into employee (firstname, lastname, gender, birthdate, paddress, stateid, cityid, caddress, emailaddress, mobilenumber, designation, picture, password) values ('{}', '{}', '{}', '{}', '{}', {}, {}, '{}','{}', '{}', '{}', '{}', '{}')".format(firstname, lastname, gender, birthdate, paddress, state, city, caddress, emailaddress, mobilenumber, designation, filename, password)
-       print(q)
-       dbe, cmd = Pool.ConnectionPolling()
-       cmd.execute(q)
-       dbe.commit()
-       F = open("D:/MM/assets/"+filename,"wb")
-       for chunk in picture.chunks():
-           F.write(chunk)
-       F.close()
-       dbe.close()
-       return render(request, "EmployeeInterface.html",{'msg':'Record Successfully Submitted'})
+        picture = request.FILES['picture']
+        filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
+        password = "".join(random.sample(
+            ['1', 'j', 'd', '@', '#', '9', '$'], k=7))
+
+        q = "insert into employee (firstname, lastname, gender, birthdate, paddress, stateid, cityid, caddress, emailaddress, mobilenumber, designation, picture, password) values ('{}', '{}', '{}', '{}', '{}', {}, {}, '{}','{}', '{}', '{}', '{}', '{}')".format(
+            firstname, lastname, gender, birthdate, paddress, state, city, caddress, emailaddress, mobilenumber, designation, filename, password)
+        print(q)
+        dbe, cmd = Pool.ConnectionPolling()
+        cmd.execute(q)
+        dbe.commit()
+        F = open("D:/MM/assets/"+filename, "wb")
+        for chunk in picture.chunks():
+            F.write(chunk)
+        F.close()
+        dbe.close()
+        return render(request, "EmployeeInterface.html", {'msg': 'Record Successfully Submitted'})
     except Exception as e:
-       print("Error :",e)
-       return render(request, "EmployeeInterface.html",{'msg':'Fail to Submit Record'})
+        print("Error :", e)
+        return render(request, "EmployeeInterface.html", {'msg': 'Fail to Submit Record'})
+
 
 def DisplayAll(request):
     try:
@@ -50,10 +56,11 @@ def DisplayAll(request):
         cmd.execute(q)
         rows = cmd.fetchall()
         dbe.close()
-        return render(request,"DisplayAllEmployee.html",{'rows' : rows})
+        return render(request, "DisplayAllEmployee.html", {'rows': rows})
     except Exception as e:
         print(e)
-        return render(request,"DisplayAllEmployee.html",{'rows' : []})
+        return render(request, "DisplayAllEmployee.html", {'rows': []})
+
 
 def DisplayById(request):
     empid = request.GET['empid']
@@ -63,10 +70,11 @@ def DisplayById(request):
         cmd.execute(q)
         row = cmd.fetchone()
         dbe.close()
-        return render(request,"DisplayEmployeeById.html",{'row' : row})
+        return render(request, "DisplayEmployeeById.html", {'row': row})
     except Exception as e:
         print(e)
-        return render(request,"DisplayEmployeeById.html",{'row' : []})
+        return render(request, "DisplayEmployeeById.html", {'row': []})
+
 
 def EditDeleteRecord(request):
     btn = request.GET['btn']
@@ -86,7 +94,8 @@ def EditDeleteRecord(request):
 
         try:
             dbe, cmd = Pool.ConnectionPolling()
-            q = "update employee set firstname = '{}', lastname = '{}', gender='{}', birthdate='{}', paddress='{}', stateid={}, cityid={}, caddress='{}', emailaddress='{}', mobilenumber='{}', designation='{}' where employeeid = {}".format(firstname, lastname, gender, birthdate, paddress, state, city, caddress, emailaddress, mobilenumber, designation, empid)
+            q = "update employee set firstname = '{}', lastname = '{}', gender='{}', birthdate='{}', paddress='{}', stateid={}, cityid={}, caddress='{}', emailaddress='{}', mobilenumber='{}', designation='{}' where employeeid = {}".format(
+                firstname, lastname, gender, birthdate, paddress, state, city, caddress, emailaddress, mobilenumber, designation, empid)
             cmd.execute(q)
             dbe.commit()
             row = cmd.fetchone()
@@ -108,37 +117,40 @@ def EditDeleteRecord(request):
         except Exception as e:
             print(e)
             return DisplayAll(request)
- 
+
+
 def EditEmployeePicture(request):
     try:
         empid = request.GET['empid']
         firstname = request.GET['firstname']
         lastname = request.GET['lastname']
         picture = request.GET['picture']
-        row = [empid,firstname,lastname,picture]
-        return render(request,"EditEmployeePicture.html",{'row':row})
+        row = [empid, firstname, lastname, picture]
+        return render(request, "EditEmployeePicture.html", {'row': row})
     except Exception as e:
-        return render(request,"EditEmployeePicture.html",{'row':[]})
-        
+        return render(request, "EditEmployeePicture.html", {'row': []})
+
+
 def SaveEditPicture(request):
     try:
-       empid1 = request.POST['empid1']
-       oldpicture = request.POST['oldpicture']
-       picture = request.FILES['picture']
-       filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
+        empid1 = request.POST['empid1']
+        oldpicture = request.POST['oldpicture']
+        picture = request.FILES['picture']
+        filename = str(uuid.uuid4())+picture.name[picture.name.rfind('.'):]
 
-       q = "update employee set picture = '{}' where employeeid = {}".format(filename,empid1)
-       print(q)
-       dbe, cmd = Pool.ConnectionPolling()
-       cmd.execute(q)
-       dbe.commit()
-       F = open("D:/MM/assets/"+filename,"wb")
-       for chunk in picture.chunks():
-           F.write(chunk)
-       F.close()
-       dbe.close()
-       os.remove('D:/MM/assets/'+oldpicture)
-       return DisplayAll(request)
+        q = "update employee set picture = '{}' where employeeid = {}".format(
+            filename, empid1)
+        print(q)
+        dbe, cmd = Pool.ConnectionPolling()
+        cmd.execute(q)
+        dbe.commit()
+        F = open("D:/MM/assets/"+filename, "wb")
+        for chunk in picture.chunks():
+            F.write(chunk)
+        F.close()
+        dbe.close()
+        os.remove('D:/MM/assets/'+oldpicture)
+        return DisplayAll(request)
     except Exception as e:
-       print("Error :",e)
-       return DisplayAll(request)
+        print("Error :", e)
+        return DisplayAll(request)
