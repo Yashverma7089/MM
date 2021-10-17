@@ -44,12 +44,4 @@ $(document).ready(function () {
 
     })
 
-    $.getJSON("/getsupplierjson", { ajax: true }, function (data) {
-
-        $.each(data, function (index, item) {
-            $('#supplierid').append($('<option>').text(item[1]).val(item[0]))
-        })
-
-    })
-
 })

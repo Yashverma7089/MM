@@ -4,7 +4,11 @@ from . import Pool
 
 
 def SupplierInterface(request):
-    return render(request, "SupplierInterface.html")
+    try:
+        result = request.session['ADMIN']
+        return render(request, "SupplierInterface.html")
+    except Exception as e:
+        return render(request, 'AdminLogin.html')
 
 
 def SupplierSubmit(request):

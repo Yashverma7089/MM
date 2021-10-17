@@ -1,18 +1,56 @@
-from django.shortcuts import render
+from django.shortcuts import render, resolve_url
+from django.views.decorators.clickjacking import xframe_options_exempt
 from . import Pool
+from . import PoolDict
 import uuid
 import random
 import os
 
-
+@xframe_options_exempt
 def EmployeeLogin(request):
     return render(request, 'EmployeeLogin.html')
 
+@xframe_options_exempt
+def CheckEmployeeLogin(request):
+  try:
+    emailaddress = request.POST['emailaddress']
+    password = request.POST['password']
 
+    dbe,cmd = PoolDict.ConnectionPolling()
+    q = "select * from employee where emailaddress = '{}' and password = '{}'".format(emailaddress,password)
+    cmd.execute(q)
+    result = cmd.fetchone()
+    print(result) 
+    if(result):
+        request.session['EMPLOYEE'] = result
+        return render(request,"EmployeeDashboard.html",{'result': result})
+    else:
+        return render(request,"EmployeeLogin.html",{'result': result, 'msg': 'Invalid Email / Password '})
+    dbe.close()
+  except Exception as e:
+    print(e)
+    return render(request,"EmployeeLogin.html",{'result': {}, 'msg' : 'Server Error'})
+
+
+@xframe_options_exempt
+def EmployeeLogout(request):
+    del request.session['EMPLOYEE'] 
+    return render(request,'EmployeeLogin.html') 
+
+
+@xframe_options_exempt
+def EmployeeDashboard(request):
+  return render(request,"EmployeeDashboard.html")
+
+@xframe_options_exempt
 def EmployeeInterface(request):
-    return render(request, 'EmployeeInterface.html')
+    try:
+        result = request.session['ADMIN']
+        return render(request, 'EmployeeInterface.html')
+    except Exception as e:
+        return render(request, 'AdminLogin.html')
 
-
+@xframe_options_exempt
 def EmployeeSubmit(request):
     try:
         firstname = request.POST['firstname']
@@ -48,7 +86,7 @@ def EmployeeSubmit(request):
         print("Error :", e)
         return render(request, "EmployeeInterface.html", {'msg': 'Fail to Submit Record'})
 
-
+@xframe_options_exempt
 def DisplayAll(request):
     try:
         dbe, cmd = Pool.ConnectionPolling()
@@ -61,7 +99,7 @@ def DisplayAll(request):
         print(e)
         return render(request, "DisplayAllEmployee.html", {'rows': []})
 
-
+@xframe_options_exempt
 def DisplayById(request):
     empid = request.GET['empid']
     try:
@@ -75,7 +113,7 @@ def DisplayById(request):
         print(e)
         return render(request, "DisplayEmployeeById.html", {'row': []})
 
-
+@xframe_options_exempt
 def EditDeleteRecord(request):
     btn = request.GET['btn']
     empid = request.GET['empid']
@@ -118,7 +156,7 @@ def EditDeleteRecord(request):
             print(e)
             return DisplayAll(request)
 
-
+@xframe_options_exempt
 def EditEmployeePicture(request):
     try:
         empid = request.GET['empid']
@@ -130,7 +168,7 @@ def EditEmployeePicture(request):
     except Exception as e:
         return render(request, "EditEmployeePicture.html", {'row': []})
 
-
+@xframe_options_exempt
 def SaveEditPicture(request):
     try:
         empid1 = request.POST['empid1']

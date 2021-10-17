@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from MM import IssueView
 from . import AdminView
 from . import EmployeeView
 from . import StateCityView
@@ -24,12 +26,22 @@ from . import ProductView
 from . import FinalProductView
 from . import SupplierView
 from . import PurchaseView
+from . import IssueView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Admin Urls
     path('adminlogin/',AdminView.AdminLogin),
+    path('checkadminlogin',AdminView.CheckAdminLogin),
+    path('admindashboard/',AdminView.AdminDashboard),
+    path('adminlogout/',AdminView.AdminLogout),
+
     # Employee Urls
     path('employeelogin/',EmployeeView.EmployeeLogin),
+    path('employeedashboard/',EmployeeView.EmployeeDashboard),
+    path('checkemployeelogin',EmployeeView.CheckEmployeeLogin),
+    path('employeelogout/',EmployeeView.EmployeeLogout),
+
     path('employeeinterface/',EmployeeView.EmployeeInterface),
     path('employeesubmit',EmployeeView.EmployeeSubmit),
     path('displayall/',EmployeeView.DisplayAll),
@@ -90,6 +102,12 @@ urlpatterns = [
     path('displayallpurchaseproduct/',PurchaseView.DisplayAllPurchaseProduct),
     path('editdeletepurchaseproductrecord/',PurchaseView.EditDeletePurchaseProductRecord),
 
+    # Issue Urls
+    path('issueinterface/',IssueView.IssueInterface),
+    path('issueproductsubmit',IssueView.IssueProductSubmit),
+    path('displayallissueproduct/',IssueView.DisplayAllIssueProduct),
+    path('editdeleteissueproductrecord/',IssueView.EditDeleteIssueProductRecord),
+    
     # State City Urls
     path('fetchallstates/',StateCityView.FetchAllStates),
     path('fetchallcities/',StateCityView.FetchAllCities),

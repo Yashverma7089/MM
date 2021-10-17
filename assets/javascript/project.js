@@ -11,7 +11,7 @@ $(document).ready(function () {
     $('#state').change(function () {
         $('#city').empty()
         $.getJSON("/fetchallcities", { ajax: true, stateid: $('#state').val() }, function (data) {
-            $('#city').append($('<option>').text('-City-'))
+            $('#city').append($('<option>').text('-Select City-'))
             $.each(data, function (index, item) {
                 $('#city').append($('<option>').text(item[2]).val(item[1]))
             })

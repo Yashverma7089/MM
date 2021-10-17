@@ -6,7 +6,11 @@ import os
 
 
 def FinalProductInterface(request):
-    return render(request, "FinalProductInterface.html")
+    try:
+        result = request.session['ADMIN']
+        return render(request, "FinalProductInterface.html")
+    except Exception as e:
+        return render(request, 'AdminLogin.html')
 
 
 def FinalProductSubmit(request):

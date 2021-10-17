@@ -6,7 +6,11 @@ import os
 
 
 def SubCategoryInterface(request):
-    return render(request, "SubCategoryInterface.html")
+    try:
+        result = request.session['ADMIN']
+        return render(request, "SubCategoryInterface.html")
+    except Exception as e:
+        return render(request, 'AdminLogin.html')
 
 
 def SubCategorySubmit(request):

@@ -3,7 +3,13 @@ from . import Pool
 
 
 def PurchaseInterface(request):
-    return render(request, "PurchaseInterface.html")
+    try:
+        result = request.session['EMPLOYEE']
+        return render(request, "PurchaseInterface.html")
+    except Exception as e:
+        return render(request, 'EmployeeLogin.html')
+
+
 
 
 def PurchaseProductSubmit(request):

@@ -47,7 +47,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+
+                          
+# SESSION_EXPIRE_SECONDS = 5*60
+# SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+# SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
 ROOT_URLCONF = 'MM.urls'
 

@@ -4,10 +4,12 @@ from . import Pool
 import uuid
 import os
 
-
 def ProductInterface(request):
-    return render(request, "ProductInterface.html")
-
+    try:
+        result = request.session['ADMIN']
+        return render(request, "ProductInterface.html")
+    except Exception as e:
+        return render(request, 'AdminLogin.html')
 
 def ProductSubmit(request):
     try:

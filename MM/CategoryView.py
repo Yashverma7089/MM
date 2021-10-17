@@ -5,7 +5,11 @@ import uuid
 import os
 
 def CategoryInterface(request):
-    return render(request,"CategoryInterface.html")
+    try:
+        result = request.session['ADMIN']
+        return render(request,"CategoryInterface.html")
+    except Exception as e:
+        return render(request, 'AdminLogin.html')
 
 def CategorySubmit(request):
     try:
