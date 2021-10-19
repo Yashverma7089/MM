@@ -24,7 +24,7 @@ def SupplierSubmit(request):
         q = "insert into supplier (suppliername, landlinenumber, mobilenumber, emailid, address, stateid, cityid) values ('{}', '{}', '{}', '{}', '{}', {}, {})".format(
             suppliername, landlinenumber, mobilenumber, emailid, address, state, city)
         print(q)
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
         dbe.commit()
         dbe.close()
@@ -36,7 +36,7 @@ def SupplierSubmit(request):
 
 def DisplayAllSupplier(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select SR.*,(select C.cityname from Cities C where C.cityid = SR.cityid), (select S.statename from States S where S.stateid = SR.stateid) from supplier SR"
         cmd.execute(q)
         rows = cmd.fetchall()
@@ -49,7 +49,7 @@ def DisplayAllSupplier(request):
 
 def GetSupplierJSON(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select * from supplier"
         cmd.execute(q)
         rows = cmd.fetchall()

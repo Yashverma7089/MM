@@ -25,7 +25,7 @@ def ProductSubmit(request):
         q = "insert into products (categoryid, subcategoryid, productname, description, gst, picture) values ({}, {}, '{}', '{}', {}, '{}')".format(
             categoryid, subcategoryid, productname, description, gst, filename)
         print(q)
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
         dbe.commit()
         F = open("D:/MM/assets/"+filename, "wb")
@@ -41,7 +41,7 @@ def ProductSubmit(request):
 
 def DisplayAllProduct(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select P.*,(select C.categoryname from categories C where C.categoryid = P.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = P.subcategoryid) from products P"
         cmd.execute(q)
         rows = cmd.fetchall()
@@ -55,7 +55,7 @@ def DisplayAllProduct(request):
 def DisplayProductById(request):
     productid = request.GET['productid']
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select P.*,(select C.categoryname from categories C where C.categoryid = P.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = P.subcategoryid) from products P where productid = {}".format(productid)
         cmd.execute(q)
         row = cmd.fetchone()
@@ -76,7 +76,7 @@ def EditDeleteProductRecord(request):
         description = request.GET['description']
         gst = request.GET['gst']
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "update products set categoryid={}, subcategoryid={}, productname='{}', description='{}', gst={} where productid={}".format(
                 categoryid, subcategoryid, productname, description, gst, productid)
             cmd.execute(q)
@@ -90,7 +90,7 @@ def EditDeleteProductRecord(request):
 
     elif(btn == "Delete"):
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "delete from products where productid={}".format(productid)
             cmd.execute(q)
             dbe.commit()
@@ -123,7 +123,7 @@ def SaveEditProductPicture(request):
         q = "update products set picture = '{}' where productid = {}".format(
             filename, productid1)
         print(q)
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
         dbe.commit()
         F = open("D:/MM/assets/"+filename, "wb")
@@ -140,7 +140,7 @@ def SaveEditProductPicture(request):
 
 def GetProductJSON(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         subcategoryid = request.GET['subcategoryid']
         q = "select * from products where subcategoryid= {}".format(
             subcategoryid)
@@ -154,7 +154,7 @@ def GetProductJSON(request):
 
 def DisplayProductEmployee(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select P.*,(select C.categoryname from categories C where C.categoryid = P.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = P.subcategoryid) from products P"
         cmd.execute(q)
         rows = cmd.fetchall()

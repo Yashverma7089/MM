@@ -25,7 +25,7 @@ def SubCategorySubmit(request):
         q = "insert into subcategory (categoryid, subcategoryname, description, icon) values ({}, '{}', '{}', '{}')".format(
             categoryid, categoryname, description, filename)
         print(q)
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
         dbe.commit()
         F = open("D:/MM/assets/"+filename, "wb")
@@ -41,7 +41,7 @@ def SubCategorySubmit(request):
 
 def DisplayAllSubCategory(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select S.*,(select C.categoryname from categories C where C.categoryid = S.categoryid) from subcategory S"
         cmd.execute(q)
         rows = cmd.fetchall()
@@ -55,7 +55,7 @@ def DisplayAllSubCategory(request):
 def DisplaySubCategoryById(request):
     subcategoryid = request.GET['subcategoryid']
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select S.*,(select C.categoryname from categories C where C.categoryid = S.categoryid) from subcategory S where subcategoryid = {}".format(subcategoryid)
         cmd.execute(q)
         row = cmd.fetchone()
@@ -74,7 +74,7 @@ def EditDeleteSubCategoryRecord(request):
         categoryname = request.GET['subcategoryname']
         description = request.GET['description']
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "update subcategory set categoryid = {}, subcategoryname = '{}', description = '{}' where subcategoryid = {}".format(
                 categoryid, categoryname, description, subcategoryid)
             cmd.execute(q)
@@ -88,7 +88,7 @@ def EditDeleteSubCategoryRecord(request):
 
     elif(btn == "Delete"):
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "delete from subcategory where subcategoryid = {}".format(
                 subcategoryid)
             cmd.execute(q)
@@ -122,7 +122,7 @@ def SaveEditSubCategoryPicture(request):
         q = "update subcategory set icon = '{}' where subcategoryid = {}".format(
             filename, subcategoryid1)
         print(q)
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
         dbe.commit()
         F = open("D:/MM/assets/"+filename, "wb")
@@ -139,7 +139,7 @@ def SaveEditSubCategoryPicture(request):
 
 def GetSubCategoryJSON(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         categoryid = request.GET['categoryid']
         q = "select * from subcategory where categoryid = {}".format(
             categoryid)

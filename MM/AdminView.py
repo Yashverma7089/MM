@@ -17,7 +17,7 @@ def CheckAdminLogin(request):
     emailid = request.POST['emailid']
     password = request.POST['password']
 
-    dbe,cmd = PoolDict.ConnectionPolling()
+    dbe,cmd = PoolDict.ConnectionPool()
     q = "select * from admins where emailid = '{}' and password = '{}'".format(emailid,password)
     cmd.execute(q)
     result = cmd.fetchone()

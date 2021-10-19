@@ -27,7 +27,7 @@ def PurchaseProductSubmit(request):
         q = "insert into purchase (employeeid, categoryid, subcategoryid, productid, finalproductid, datepurchase, supplierid, stock, amount) values ({}, {}, {}, {}, {}, '{}', {}, {}, {} )".format(
             employeeid, categoryid, subcategoryid, productid, finalproductid, datepurchase, supplierid, stock, amount)
         print(q)
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
         dbe.commit()
         dbe.close()
@@ -39,7 +39,7 @@ def PurchaseProductSubmit(request):
 
 def DisplayAllPurchaseProduct(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select PP.*,(select C.categoryname from categories C where C.categoryid = PP.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = PP.subcategoryid), (select P.productname from products P where P.productid = PP.productid), (select FP.finalproductname from finalproducts FP where FP.finalproductid = PP.finalproductid), (select S.suppliername from supplier S where S.supplierid = PP.supplierid) from purchase PP"
         cmd.execute(q)
         rows = cmd.fetchall()
@@ -64,7 +64,7 @@ def EditDeletePurchaseProductRecord(request):
         stock = request.GET['stock']
         amount = request.GET['amount']
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "update purchase set employeeid = {}, categoryid = {}, subcategoryid = {}, productid = {}, finalproductid = {}, datepurchase = '{}', supplierid = {}, stock = {}, amount = {} where transactionid={}".format(
                 employeeid, categoryid, subcategoryid, productid, finalproductid, datepurchase, supplierid, stock, amount, transactionid)
             print(q)
@@ -79,7 +79,7 @@ def EditDeletePurchaseProductRecord(request):
 
     elif(btn == "Delete"):
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "delete from purchase where transactionid={}".format(
                 transactionid)
             cmd.execute(q)

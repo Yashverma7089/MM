@@ -24,7 +24,7 @@ def IssueProductSubmit(request):
         q = "insert into issue (employeeid, categoryid, subcategoryid, productid, finalproductid, demand_employeeid, dateissue, qtyissue, remark) values ({}, {}, {}, {}, {}, {}, '{}', {}, '{}' )".format(
              employeeid, categoryid, subcategoryid, productid, finalproductid, demand_employeeid, dateissue, qtyissue, remark)
         print(q)
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
         dbe.commit()
         dbe.close()
@@ -35,7 +35,7 @@ def IssueProductSubmit(request):
 
 def DisplayAllIssueProduct(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select IP.*,(select C.categoryname from categories C where C.categoryid = IP.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = IP.subcategoryid), (select P.productname from products P where P.productid = IP.productid), (select FP.finalproductname from finalproducts FP where FP.finalproductid = IP.finalproductid) from issue IP"
         cmd.execute(q)
         rows = cmd.fetchall()
@@ -59,7 +59,7 @@ def EditDeleteIssueProductRecord(request):
         qtyissue = request.GET['qtyissue']
         remark = request.GET['remark']
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "update issue set employeeid = {}, categoryid = {}, subcategoryid = {}, productid = {}, finalproductid = {}, demand_employeeid = {}, dateissue = '{}', qtyissue = {}, remark = '{}' where issueid={}".format(
                 employeeid, categoryid, subcategoryid, productid, finalproductid, demand_employeeid ,dateissue, qtyissue, remark, issueid)
             print(q)
@@ -74,7 +74,7 @@ def EditDeleteIssueProductRecord(request):
 
     elif(btn == "Delete"):
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "delete from issue where issueid={}".format(
                 issueid)
             cmd.execute(q)

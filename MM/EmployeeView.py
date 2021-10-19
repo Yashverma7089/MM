@@ -16,7 +16,7 @@ def CheckEmployeeLogin(request):
     emailaddress = request.POST['emailaddress']
     password = request.POST['password']
 
-    dbe,cmd = PoolDict.ConnectionPolling()
+    dbe,cmd = PoolDict.ConnectionPool()
     q = "select * from employee where emailaddress = '{}' and password = '{}'".format(emailaddress,password)
     cmd.execute(q)
     result = cmd.fetchone()
@@ -73,7 +73,7 @@ def EmployeeSubmit(request):
         q = "insert into employee (firstname, lastname, gender, birthdate, paddress, stateid, cityid, caddress, emailaddress, mobilenumber, designation, picture, password) values ('{}', '{}', '{}', '{}', '{}', {}, {}, '{}','{}', '{}', '{}', '{}', '{}')".format(
             firstname, lastname, gender, birthdate, paddress, state, city, caddress, emailaddress, mobilenumber, designation, filename, password)
         print(q)
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
         dbe.commit()
         F = open("D:/MM/assets/"+filename, "wb")
@@ -89,7 +89,7 @@ def EmployeeSubmit(request):
 @xframe_options_exempt
 def DisplayAll(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select E.*,(select C.cityname from Cities C where C.cityid = E.cityid), (select S.statename from States S where S.stateid = E.stateid) from employee E"
         cmd.execute(q)
         rows = cmd.fetchall()
@@ -103,7 +103,7 @@ def DisplayAll(request):
 def DisplayById(request):
     empid = request.GET['empid']
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select E.*,(select C.cityname from Cities C where C.cityid = E.cityid), (select S.statename from States S where S.stateid = E.stateid) from employee E where employeeid = {}".format(empid)
         cmd.execute(q)
         row = cmd.fetchone()
@@ -131,7 +131,7 @@ def EditDeleteRecord(request):
         designation = request.GET['designation']
 
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "update employee set firstname = '{}', lastname = '{}', gender='{}', birthdate='{}', paddress='{}', stateid={}, cityid={}, caddress='{}', emailaddress='{}', mobilenumber='{}', designation='{}' where employeeid = {}".format(
                 firstname, lastname, gender, birthdate, paddress, state, city, caddress, emailaddress, mobilenumber, designation, empid)
             cmd.execute(q)
@@ -145,7 +145,7 @@ def EditDeleteRecord(request):
 
     elif(btn == "Delete"):
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "delete from employee  where employeeid = {}".format(empid)
             cmd.execute(q)
             dbe.commit()
@@ -179,7 +179,7 @@ def SaveEditPicture(request):
         q = "update employee set picture = '{}' where employeeid = {}".format(
             filename, empid1)
         print(q)
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
         dbe.commit()
         F = open("D:/MM/assets/"+filename, "wb")

@@ -20,7 +20,7 @@ def CategorySubmit(request):
 
        q = "insert into categories (categoryname, icon) values ('{}', '{}')".format(categoryname, filename)
        print(q)
-       dbe, cmd = Pool.ConnectionPolling()
+       dbe, cmd = Pool.ConnectionPool()
        cmd.execute(q)
        dbe.commit()
        F = open("D:/MM/assets/"+filename,"wb")
@@ -35,7 +35,7 @@ def CategorySubmit(request):
 
 def DisplayAllCategory(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select * from categories"
         cmd.execute(q)
         rows = cmd.fetchall()
@@ -48,7 +48,7 @@ def DisplayAllCategory(request):
 def DisplayCategoryById(request):
     categoryid = request.GET['categoryid']
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select * from categories where categoryid = {} ".format(categoryid)
         cmd.execute(q)
         row = cmd.fetchone()
@@ -64,7 +64,7 @@ def EditDeleteCategoryRecord(request):
     if(btn == 'Edit'):
         categoryname = request.GET['categoryname']
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "update categories set categoryname = '{}' where categoryid = {}".format(categoryname, categoryid)
             print(q)
             cmd.execute(q)
@@ -78,7 +78,7 @@ def EditDeleteCategoryRecord(request):
     
     elif(btn == 'Delete'):
         try:
-            dbe, cmd = Pool.ConnectionPolling()
+            dbe, cmd = Pool.ConnectionPool()
             q = "delete from categories where categoryid = {}".format(categoryid)
             cmd.execute(q)
             dbe.commit()
@@ -108,7 +108,7 @@ def SaveEditCategoryPicture(request):
 
        q = "update categories set icon = '{}' where categoryid = {}".format(filename,categoryid1)
        print(q)
-       dbe, cmd = Pool.ConnectionPolling()
+       dbe, cmd = Pool.ConnectionPool()
        cmd.execute(q)
        dbe.commit()
        F = open("D:/MM/assets/"+filename,"wb")
@@ -124,7 +124,7 @@ def SaveEditCategoryPicture(request):
 
 def GetCategoryJSON(request):
     try:
-        dbe, cmd = Pool.ConnectionPolling()
+        dbe, cmd = Pool.ConnectionPool()
         q = "select * from categories"
         cmd.execute(q)
         rows = cmd.fetchall()
