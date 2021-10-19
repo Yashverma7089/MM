@@ -79,6 +79,7 @@ urlpatterns = [
     path('editproductpicture/',ProductView.EditProductPicture),
     path('saveeditproductpicture',ProductView.SaveEditProductPicture),
     path('getproductjson/',ProductView.GetProductJSON), 
+    path('displayproductemployee/',ProductView.DisplayProductEmployee), 
 
     # FinalProduct Urls
     path('finalproductinterface/',FinalProductView.FinalProductInterface),
@@ -89,6 +90,7 @@ urlpatterns = [
     path('editfinalproductpicture/',FinalProductView.EditFinalProductPicture),
     path('saveeditfinalproductpicture',FinalProductView.SaveEditFinalProductPicture),
     path('getfinalproductjson/',FinalProductView.GetFinalProductJSON),
+    path('displayfinalproductemployee/',FinalProductView.DisplayFinalProductEmployee), 
 
     # Supplier Urls
     path('supplierinterface/',SupplierView.SupplierInterface),

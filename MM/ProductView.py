@@ -151,3 +151,15 @@ def GetProductJSON(request):
     except Exception as e:
         print(e)
         return JsonResponse([], safe=False)
+
+def DisplayProductEmployee(request):
+    try:
+        dbe, cmd = Pool.ConnectionPolling()
+        q = "select P.*,(select C.categoryname from categories C where C.categoryid = P.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = P.subcategoryid) from products P"
+        cmd.execute(q)
+        rows = cmd.fetchall()
+        dbe.close()
+        return render(request, "DisplayProductEmployee.html", {'rows': rows})
+    except Exception as e:
+        print(e)
+        return render(request, "DisplayProductEmployee.html", {'rows': []})
