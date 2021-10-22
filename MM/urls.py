@@ -49,6 +49,7 @@ urlpatterns = [
     path('editdeleteemployeerecord/',EmployeeView.EditDeleteRecord),
     path('editemployeepicture/',EmployeeView.EditEmployeePicture),
     path('saveeditpicture',EmployeeView.SaveEditPicture),
+    path('getemployeejson/',EmployeeView.GetEmployeeJSON),
 
     # Category Urls
     path('categoryinterface/',CategoryView.CategoryInterface),
@@ -91,6 +92,9 @@ urlpatterns = [
     path('saveeditfinalproductpicture',FinalProductView.SaveEditFinalProductPicture),
     path('getfinalproductjson/',FinalProductView.GetFinalProductJSON),
     path('displayfinalproductemployee/',FinalProductView.DisplayFinalProductEmployee), 
+    path('diplayfinalproductbyidjson/',FinalProductView.DisplayFinalProductByIdJSON),
+    path('diplayfinalproductalljson/',FinalProductView.DisplayFinalProductAllJSON),
+    path('displayupdatedstock/',FinalProductView.DisplayUpdatedStock),
 
     # Supplier Urls
     path('supplierinterface/',SupplierView.SupplierInterface),

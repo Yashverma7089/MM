@@ -5,11 +5,9 @@ from . import Pool
 def PurchaseInterface(request):
     try:
         result = request.session['EMPLOYEE']
-        return render(request, "PurchaseInterface.html")
+        return render(request, "PurchaseInterface.html",{'result':result})
     except Exception as e:
         return render(request, 'EmployeeLogin.html')
-
-
 
 
 def PurchaseProductSubmit(request):
@@ -29,6 +27,9 @@ def PurchaseProductSubmit(request):
         print(q)
         dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
+        # update Stock
+        q = "update finalproducts set price = ((price + {})/2) , stock = stock + {} where finalproductid = {}".format(amount,stock,finalproductid)
+        cmd.execute(q)
         dbe.commit()
         dbe.close()
         return render(request, "PurchaseInterface.html", {'msg': 'Record Successfully Submitted'})
@@ -44,7 +45,8 @@ def DisplayAllPurchaseProduct(request):
         cmd.execute(q)
         rows = cmd.fetchall()
         dbe.close()
-        return render(request, "DisplayAllPurchaseProduct.html", {'rows': rows})
+        result = request.session['EMPLOYEE']
+        return render(request, "DisplayAllPurchaseProduct.html", {'rows': rows,'result':result})
     except Exception as e:
         print(e)
         return render(request, "DisplayAllPurchaseProduct.html", {'rows': []})

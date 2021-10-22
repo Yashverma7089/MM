@@ -1,5 +1,8 @@
 $(document).ready(function () {
-
+    var d = new Date()
+    var cd = (d.getFullYear())+"-"+(d.getMonth()+1)+"-"+(d.getDate())
+    $('#datepurchase').val(cd)
+    
     $.getJSON("/getcategoryjson", { ajax: true }, function (data) {
 
         $.each(data, function (index, item) {

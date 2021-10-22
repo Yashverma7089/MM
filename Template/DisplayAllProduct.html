@@ -373,6 +373,7 @@ The above copyright notice and this permission notice shall be included in all c
                             var data = $(this).attr('data')
                             data = setData(data)
                             $('#categoryid').val(data[0].trim())
+                            
                             $('#subcategoryid').append($('<option>').text(data[8]).val(data[1]))
                             $('#productid').val(data[2].trim())
                             $('#productname').val(data[3].trim())

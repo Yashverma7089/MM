@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from . import Pool
+from . import PoolDict
 import uuid
 import os
 
@@ -174,7 +175,38 @@ def DisplayFinalProductEmployee(request):
         cmd.execute(q)
         rows = cmd.fetchall()
         dbe.close()
-        return render(request, "DisplayFinalProductEmployee.html", {'rows': rows})
+        result = request.session['EMPLOYEE']
+        return render(request, "DisplayFinalProductEmployee.html", {'rows': rows, 'result': result})
     except Exception as e:
         print(e)
         return render(request, "DisplayFinalProductEmployee.html", {'rows': []})
+
+# fetch the total stock of final product
+def DisplayFinalProductByIdJSON(request):
+    finalproductid = request.GET['finalproductid']
+    try:
+        dbe, cmd = PoolDict.ConnectionPool()
+        q = "select FP.*,(select C.categoryname from categories C where C.categoryid = FP.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = FP.subcategoryid), (select P.productname from products P where P.productid = FP.productid) from finalproducts FP where finalproductid = {}".format(finalproductid)
+        cmd.execute(q)
+        row = cmd.fetchone()
+        dbe.close()
+        return JsonResponse(row, safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse([], safe=False)
+
+def DisplayFinalProductAllJSON(request):
+    pattern = request.GET['pattern']
+    try:
+        dbe, cmd = PoolDict.ConnectionPool()
+        q = "select FP.*,(select C.categoryname from categories C where C.categoryid = FP.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = FP.subcategoryid), (select P.productname from products P where P.productid = FP.productid) from finalproducts FP where finalproductname like '%{}%'".format(pattern)
+        cmd.execute(q)
+        rows = cmd.fetchall()
+        dbe.close()
+        return JsonResponse(rows, safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse([], safe=False)
+
+def DisplayUpdatedStock(request):
+    return render(request,"ListProductEmployee.html")

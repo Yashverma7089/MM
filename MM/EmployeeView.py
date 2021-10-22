@@ -1,7 +1,9 @@
 from django.shortcuts import render, resolve_url
+from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from . import Pool
 from . import PoolDict
+
 import uuid
 import random
 import os
@@ -17,7 +19,8 @@ def CheckEmployeeLogin(request):
     password = request.POST['password']
 
     dbe,cmd = PoolDict.ConnectionPool()
-    q = "select * from employee where emailaddress = '{}' and password = '{}'".format(emailaddress,password)
+    q = "select * from employee where (emailaddress = '{}'  or mobilenumber='{}' ) and password='{}'".format(emailaddress,emailaddress,password)
+    print(q)
     cmd.execute(q)
     result = cmd.fetchone()
     print(result) 
@@ -40,7 +43,8 @@ def EmployeeLogout(request):
 
 @xframe_options_exempt
 def EmployeeDashboard(request):
-  return render(request,"EmployeeDashboard.html")
+  result = request.session['EMPLOYEE']
+  return render(request,"EmployeeDashboard.html",{'result':result})
 
 @xframe_options_exempt
 def EmployeeInterface(request):
@@ -192,3 +196,16 @@ def SaveEditPicture(request):
     except Exception as e:
         print("Error :", e)
         return DisplayAll(request)
+
+def GetEmployeeJSON(request):
+    try:
+        dbe, cmd = Pool.ConnectionPool()
+        q = "select * from employee"
+        cmd.execute(q)
+        rows = cmd.fetchall()
+        print(rows)
+        dbe.close()
+        return JsonResponse(rows,safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse(rows,safe=False)

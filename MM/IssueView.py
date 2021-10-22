@@ -4,7 +4,8 @@ from . import Pool
 def IssueInterface(request):
     try:
         result = request.session['EMPLOYEE']
-        return render(request, "IssueInterface.html")
+        print(result)
+        return render(request, "IssueInterface.html",{'result':result})
     except Exception as e:
         return render(request, 'EmployeeLogin.html')
 
@@ -26,6 +27,9 @@ def IssueProductSubmit(request):
         print(q)
         dbe, cmd = Pool.ConnectionPool()
         cmd.execute(q)
+        # update Stock
+        q = "update finalproducts set stock = stock - {} where finalproductid = {}".format(qtyissue,finalproductid)
+        cmd.execute(q)
         dbe.commit()
         dbe.close()
         return render(request, "IssueInterface.html", {'msg': 'Record Successfully Submitted'})
@@ -36,14 +40,17 @@ def IssueProductSubmit(request):
 def DisplayAllIssueProduct(request):
     try:
         dbe, cmd = Pool.ConnectionPool()
-        q = "select IP.*,(select C.categoryname from categories C where C.categoryid = IP.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = IP.subcategoryid), (select P.productname from products P where P.productid = IP.productid), (select FP.finalproductname from finalproducts FP where FP.finalproductid = IP.finalproductid) from issue IP"
+        q = "select IP.*,(select C.categoryname from categories C where C.categoryid = IP.categoryid),(select S.subcategoryname from subcategory S where S.subcategoryid = IP.subcategoryid), (select P.productname from products P where P.productid = IP.productid), (select FP.finalproductname from finalproducts FP where FP.finalproductid = IP.finalproductid), (select E.firstname from employee E where E.employeeid = IP.demand_employeeid), (select E.lastname from employee E where E.employeeid = IP.demand_employeeid),(select E.firstname from employee E where E.employeeid = IP.employeeid), (select E.lastname from employee E where E.employeeid = IP.employeeid) from issue IP"
+        print(q)
         cmd.execute(q)
         rows = cmd.fetchall()
         dbe.close()
-        return render(request, "DisplayAllIssueProduct.html", {'rows': rows})
+        result = request.session['EMPLOYEE']
+        return render(request, "DisplayAllIssueProduct.html", {'rows': rows, 'result':result})
     except Exception as e:
         print(e)
         return render(request, "DisplayAllIssueProduct.html", {'rows': []})
+
 
 def EditDeleteIssueProductRecord(request):
     btn = request.GET['btn']

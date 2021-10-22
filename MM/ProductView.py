@@ -159,7 +159,8 @@ def DisplayProductEmployee(request):
         cmd.execute(q)
         rows = cmd.fetchall()
         dbe.close()
-        return render(request, "DisplayProductEmployee.html", {'rows': rows})
+        result = request.session['EMPLOYEE']
+        return render(request, "DisplayProductEmployee.html", {'rows': rows, 'result':result})
     except Exception as e:
         print(e)
         return render(request, "DisplayProductEmployee.html", {'rows': []})
