@@ -58,53 +58,53 @@ The above copyright notice and this permission notice shall be included in all c
             </a>
           </li>
           <li class="nav-item ">
-              <a class="nav-link" href="/displayfinalproductemployee">
-                <i class="material-icons">content_paste</i>
-                <p>List Final Product</p>
+            <a class="nav-link" href="/displayfinalproductemployee">
+              <i class="material-icons">content_paste</i>
+              <p>List Final Product</p>
             </a>
-        </li>
+          </li>
           <li class="nav-item ">
-              <a class="nav-link" href="/displayupdatedstock">
-                <i class="material-icons">search</i>
-                <p>Search Final Product</p>
+            <a class="nav-link" href="/displayupdatedstock">
+              <i class="material-icons">search</i>
+              <p>Search Final Product</p>
             </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="/purchaseinterface">
-            <i class="material-icons">bubble_chart</i>
-            <p>Purchase</p>
-          </a>
-        </li>
-        <li class="nav-item ">
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/purchaseinterface">
+              <i class="material-icons">bubble_chart</i>
+              <p>Purchase</p>
+            </a>
+          </li>
+          <li class="nav-item ">
             <a class="nav-link" href="/displayallpurchaseproduct">
               <i class="material-icons">content_paste</i>
               <p>List Purchase</p>
-          </a>
-      </li>
-        <li class="nav-item ">
+            </a>
+          </li>
+          <li class="nav-item ">
             <a class="nav-link" href="/listpurchaseemployee">
               <i class="material-icons">list</i>
               <p>Purchase Report</p>
-          </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/issueinterface">
-          <i class="material-icons">bubble_chart</i>
-          <p>Issue</p>
-        </a>
-      </li>
-      <li class="nav-item ">
-          <a class="nav-link" href="/displayallissueproduct">
-            <i class="material-icons">content_paste</i>
-            <p>List Issue</p>
-        </a>
-    </li>
-      <li class="nav-item ">
-          <a class="nav-link" href="/listissueemployee">
-            <i class="material-icons">list</i>
-            <p>Issue Report</p>
-        </a>
-    </li>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/issueinterface">
+              <i class="material-icons">bubble_chart</i>
+              <p>Issue</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/displayallissueproduct">
+              <i class="material-icons">content_paste</i>
+              <p>List Issue</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/listissueemployee">
+              <i class="material-icons">list</i>
+              <p>Issue Report</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -205,7 +205,8 @@ The above copyright notice and this permission notice shall be included in all c
 
                       <div class="row gap">
                         <div class="col">
-                          <input readonly="true" type="text" name="employeeid" value="{{result.employeeid}}" class="form-control" placeholder="Employee Id">
+                          <input readonly="true" type="text" name="employeeid" value="{{result.employeeid}}"
+                            class="form-control" placeholder="Employee Id">
                         </div>
                       </div>
 
@@ -216,7 +217,7 @@ The above copyright notice and this permission notice shall be included in all c
                           </select>
                         </div>
                       </div>
-                      
+
                       <div class="row gap">
                         <div class="col">
                           <select id="subcategoryid" name="subcategoryid" class="form-control">
@@ -239,12 +240,12 @@ The above copyright notice and this permission notice shall be included in all c
                             <option>-Select Final Product-</option>
                           </select>
                         </div>
-                        
+
                         <div class="col">
                           <b>Current Stock :</b> <span id="currentstock"></span>
                         </div>
                       </div>
-                      
+
                       <div class="row gap">
                         <div class="col">
                           <select id="demand_employeeid" name="demand_employeeid" class="form-control">
@@ -254,14 +255,16 @@ The above copyright notice and this permission notice shall be included in all c
 
                       <div class="row gap">
                         <div class="col">
-                          <input type="date" readonly id="dateissue" name="dateissue" class="form-control" placeholder="Purchase Date">
+                          <input type="date" readonly id="dateissue" name="dateissue" class="form-control"
+                            placeholder="Purchase Date">
                         </div>
                       </div>
 
 
                       <div class="row gap">
                         <div class="col">
-                          <input type="text" name="qtyissue" id="qtyissue" class="form-control" placeholder="Quantity Issued">
+                          <input type="text" name="qtyissue" id="qtyissue" class="form-control"
+                            placeholder="Quantity Issued">
                         </div>
 
                         <div class="col">
@@ -271,7 +274,8 @@ The above copyright notice and this permission notice shall be included in all c
 
                       <div class="row gap">
                         <div class="col btnstyle">
-                          <button type="submit" id="btnsubmit" disabled class="btn btn-primary" style="width: 100%;">Save</button>
+                          <button type="submit" id="btnsubmit" disabled class="btn btn-primary"
+                            style="width: 100%;">Save</button>
                         </div>
 
                         <div class="col btnstyle">
@@ -303,41 +307,7 @@ The above copyright notice and this permission notice shall be included in all c
           </div>
         </div>
       </div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
-              document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-          </div>
-        </div>
-      </footer>
+
     </div>
   </div>
   <div class="fixed-plugin">

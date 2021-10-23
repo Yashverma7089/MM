@@ -1,71 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="/static/javascript/purchase.js"></script>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style type="text/css">
-        .root {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #dfe6e9;
-            padding: 20px;
-        }
-
-        .myframe {
-            width: 100%;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
-        .gap {
-            margin-top: 10px;
-        }
-
-        .btnstyle {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
-
-    <title>Material Management</title>
-</head>
-<body style="background-color: #dfe6e9;">
-    <div class="root">
-        <div class="myframe">
-
-    <div>
-        <div class="row gap">
-            <div class="col">
-             From :  <input type="date"  id="fromdate" name="fromdate" class="form-control" placeholder="Purchase Date">
-            </div>
-            <div class="col">
-             To :  <input type="date"  id="todate" name="todate" class="form-control" placeholder="Purchase Date">
-            </div>
-          </div>
-          <div class="row gap">
-            <div class="col btnstyle">
-              <button type="submit" id="btnsubmit"  class="btn btn-primary" style="width: 10%;">View</button>
-            </div>
-</div>
-</div>
-    <div id="result">
-    </div>
-    </div>
-    </div>
-
-</body>
-</html> -->
-
 <!--
 =========================================================
 Material Dashboard - v2.1.2
@@ -213,17 +145,22 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="content">
                 <div class="container-fluid">
                     <div class="card">
-                        <div class="card-header card-header-primary" style="display: flex;justify-content: space-between ;">
+                        <div class="card-header card-header-primary"
+                            style="display: flex;justify-content: space-between ;">
                             <span style="font-weight: bold;" class="card-title">Purchase Report</span>
                             <span style="display: flex; float: right;" class="card-category">Material Management</span>
                         </div>
                         <div class="card-body">
 
-                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-                            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-                                integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                            <link rel="stylesheet"
+                                href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+                            <link rel="stylesheet"
+                                href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+                                integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+                                crossorigin="anonymous">
                             <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-                                integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+                                integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+                                crossorigin="anonymous" />
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                             <script src="/static/javascript/purchase.js"></script>
                             <meta charset="UTF-8">
@@ -237,91 +174,61 @@ The above copyright notice and this permission notice shall be included in all c
                                     background-color: #dfe6e9;
                                     padding: 20px;
                                 }
-                        
+
                                 .myframe {
                                     width: 100%;
                                     background-color: #fff;
                                     padding: 20px;
                                     border-radius: 10px;
                                 }
-                        
+
                                 .gap {
                                     margin-top: 10px;
                                 }
-                        
+
                                 .btnstyle {
                                     display: flex;
                                     justify-content: center;
                                 }
                             </style>
-                        
+
                             <title>Material Management</title>
-                        </head>
-                        <body style="background-color: #dfe6e9;">
-                            <div class="root">
-                                <div class="myframe">
-                        
-                            <div>
-                                <div class="row gap">
-                                    <div class="col">
-                                     From :  <input type="date"  id="fromdate" name="fromdate" class="form-control" placeholder="Purchase Date">
+                            </head>
+
+                            <body style="background-color: #dfe6e9;">
+                                <div class="root">
+                                    <div class="myframe">
+
+                                        <div>
+                                            <div class="row gap">
+                                                <div class="col">
+                                                    <b>From :</b> <input type="date" id="fromdate" name="fromdate"
+                                                        class="form-control" placeholder="Purchase Date">
+                                                </div>
+                                                <div class="col">
+                                                    <b> To : </b> <input type="date" id="todate" name="todate"
+                                                        class="form-control" placeholder="Purchase Date">
+                                                </div>
+                                            </div>
+                                            <div class="row gap">
+                                                <div class="col btnstyle">
+                                                    <button type="submit" id="btnsubmit" class="btn btn-primary"
+                                                        style="width: 10%;">View</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="result">
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                     To :  <input type="date"  id="todate" name="todate" class="form-control" placeholder="Purchase Date">
-                                    </div>
-                                  </div>
-                                  <div class="row gap">
-                                    <div class="col btnstyle">
-                                      <button type="submit" id="btnsubmit"  class="btn btn-primary" style="width: 10%;">View</button>
-                                    </div>
-                        </div>
-                        </div>
-                            <div id="result">
-                            </div>
-                            </div>
-                            </div>
-                        
-                        </body>
+                                </div>
+
+                            </body>
 
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="footer">
-                <div class="container-fluid">
-                    <nav class="float-left">
-                        <ul>
-                            <li>
-                                <a href="https://www.creative-tim.com">
-                                    Creative Tim
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://creative-tim.com/presentation">
-                                    About Us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://blog.creative-tim.com">
-                                    Blog
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.creative-tim.com/license">
-                                    Licenses
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="copyright float-right">
-                        &copy;
-                        <script>
-                            document.write(new Date().getFullYear())
-                        </script>, made with <i class="material-icons">favorite</i> by
-                        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
-                    </div>
-                </div>
-            </footer>
+
         </div>
     </div>
     <div class="fixed-plugin">
