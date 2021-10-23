@@ -64,5 +64,15 @@ $(document).ready(function () {
         }
     })
 
+    $('#btnsubmit').click(function () {
+        $.getJSON("/displayissuealljson", { fromdate: $('#fromdate').val(),todate: $('#todate').val() }, function (data) {        
+            var htm = "<table class='table'><tr><th>Id</th><th>Category Name</th><th>Subcategory Name</th><th>Product Name</th><th>FinalProduct Name</th><th>Demand <br> Employee Name</th><th>Issue Date</th><th>Quantity Issued</th><th>Remark</th></tr>"
+            $.each(data, function (index, item) {
+              htm += "<tr><th scope='row'>"+item.issueid+"</th><td>"+item.categoryname+"</td><td>"+item.subcategoryname+"</td><td>"+item.productname+"</td><td>"+item.finalproductname+"</td><td>"+item.dfname+" "+item.dflname+"</td><td>"+item.dateissue+"</td><td>"+item.qtyissue+"</td><td>"+item.remark+"</td></tr>"
+            })
+            htm+= "</table>"
+            $('#result').html(htm)
+        })
+    })
     
 })

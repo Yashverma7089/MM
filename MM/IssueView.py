@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from . import Pool
+from . import PoolDict
 
 def IssueInterface(request):
     try:
@@ -92,3 +94,26 @@ def EditDeleteIssueProductRecord(request):
         except Exception as e:
             print(e)
             return DisplayAllIssueProduct(request)
+
+
+def DisplayIssueAllJSON(request):
+    fromdate = request.GET['fromdate']
+    todate = request.GET['todate']
+    try:
+        dbe, cmd = PoolDict.ConnectionPool()
+        # q = "select PP.*,(select C.categoryname from categories C where C.categoryid = PP.categoryid) as categoryname,(select S.subcategoryname from subcategory S where S.subcategoryid = PP.subcategoryid) as subcategoryname, (select P.productname from products P where P.productid = PP.productid) as productname, (select FP.finalproductname from finalproducts FP where FP.finalproductid = PP.finalproductid) as finalproductname, (select S.suppliername from supplier S where S.supplierid = PP.supplierid) as suppliername from purchase PP where datepurchase between '{}' and '{}'".format(fromdate,todate)
+        q = "select IP.*,(select C.categoryname from categories C where C.categoryid = IP.categoryid) as categoryname,(select S.subcategoryname from subcategory S where S.subcategoryid = IP.subcategoryid) as subcategoryname, (select P.productname from products P where P.productid = IP.productid) as productname, (select FP.finalproductname from finalproducts FP where FP.finalproductid = IP.finalproductid) as finalproductname, (select E.firstname from employee E where E.employeeid = IP.demand_employeeid) as dfname, (select E.lastname from employee E where E.employeeid = IP.demand_employeeid) as flname,(select E.firstname from employee E where E.employeeid = IP.employeeid) as fname, (select E.lastname from employee E where E.employeeid = IP.employeeid) as lname from issue IP where dateissue between '{}' and '{}'".format(fromdate,todate)        
+        cmd.execute(q)
+        rows = cmd.fetchall()
+        dbe.close()
+        return JsonResponse(rows, safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse([], safe=False)
+
+def ListIssueEmployee(request):
+    try:
+        result = request.session['EMPLOYEE']
+        return render(request,"ListIssueEmployee.html",{'result':result})
+    except Exception as e:
+        return render(request, 'EmployeeLogin.html')

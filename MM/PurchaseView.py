@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from . import Pool
+from . import PoolDict
 
 
 def PurchaseInterface(request):
@@ -92,3 +94,24 @@ def EditDeletePurchaseProductRecord(request):
         except Exception as e:
             print(e)
             return DisplayAllPurchaseProduct(request)
+
+def DisplayPurchaseAllJSON(request):
+    fromdate = request.GET['fromdate']
+    todate = request.GET['todate']
+    try:
+        dbe, cmd = PoolDict.ConnectionPool()
+        q = "select PP.*,(select C.categoryname from categories C where C.categoryid = PP.categoryid) as categoryname,(select S.subcategoryname from subcategory S where S.subcategoryid = PP.subcategoryid) as subcategoryname, (select P.productname from products P where P.productid = PP.productid) as productname, (select FP.finalproductname from finalproducts FP where FP.finalproductid = PP.finalproductid) as finalproductname, (select S.suppliername from supplier S where S.supplierid = PP.supplierid) as suppliername from purchase PP where datepurchase between '{}' and '{}'".format(fromdate,todate)
+        cmd.execute(q)
+        rows = cmd.fetchall()
+        dbe.close()
+        return JsonResponse(rows, safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse([], safe=False)
+
+def ListPurchaseEmployee(request):
+    try:
+        result = request.session['EMPLOYEE']
+        return render(request,"ListPurchaseEmployee.html",{'result':result})
+    except Exception as e:
+        return render(request, 'EmployeeLogin.html')

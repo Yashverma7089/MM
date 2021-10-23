@@ -55,4 +55,14 @@ $(document).ready(function () {
 
     })
 
+    $('#btnsubmit').click(function () {
+        $.getJSON("/displaypuchasealljson", { fromdate: $('#fromdate').val(),todate: $('#todate').val() }, function (data) {        
+            var htm = "<table class='table'><tr><th>Id</th><th>Category Name</th><th>Subcategory Name</th><th>Product Name</th><th>FinalProduct Name</th><th>Purchase Date</th><th>Supplier Name</th><th>Stock</th><th>Price</th></tr>"
+            $.each(data, function (index, item) {
+              htm += "<tr><th scope='row'>"+item.transactionid+"</th><td>"+item.categoryname+"</td><td>"+item.subcategoryname+"</td><td>"+item.productname+"</td><td>"+item.finalproductname+"</td><td>"+item.datepurchase+"</td><td>"+item.suppliername+"</td><td>"+item.stock+"</td><td>"+item.amount+"</td></tr>"
+            })
+            htm+= "</table>"
+            $('#result').html(htm)
+        })
+    })
 })

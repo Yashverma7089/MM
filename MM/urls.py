@@ -107,12 +107,16 @@ urlpatterns = [
     path('purchaseproductsubmit',PurchaseView.PurchaseProductSubmit),
     path('displayallpurchaseproduct/',PurchaseView.DisplayAllPurchaseProduct),
     path('editdeletepurchaseproductrecord/',PurchaseView.EditDeletePurchaseProductRecord),
+    path('displaypuchasealljson/',PurchaseView.DisplayPurchaseAllJSON),
+    path('listpurchaseemployee/',PurchaseView.ListPurchaseEmployee),
 
     # Issue Urls
     path('issueinterface/',IssueView.IssueInterface),
     path('issueproductsubmit',IssueView.IssueProductSubmit),
     path('displayallissueproduct/',IssueView.DisplayAllIssueProduct),
     path('editdeleteissueproductrecord/',IssueView.EditDeleteIssueProductRecord),
+    path('displayissuealljson/',IssueView.DisplayIssueAllJSON),
+    path('listissueemployee/',IssueView.ListIssueEmployee),
     
     # State City Urls
     path('fetchallstates/',StateCityView.FetchAllStates),

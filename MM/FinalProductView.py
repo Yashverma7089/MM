@@ -209,4 +209,8 @@ def DisplayFinalProductAllJSON(request):
         return JsonResponse([], safe=False)
 
 def DisplayUpdatedStock(request):
-    return render(request,"ListProductEmployee.html")
+    try:
+        result = request.session['EMPLOYEE']
+        return render(request,"ListProductEmployee.html",{'result':result})
+    except Exception as e:
+        return render(request, 'EmployeeLogin.html')
