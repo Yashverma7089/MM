@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from . import Pool
 from . import PoolDict
-
+from . import SendSms
 import uuid
 import random
 import os
@@ -85,6 +85,8 @@ def EmployeeSubmit(request):
             F.write(chunk)
         F.close()
         dbe.close()
+        result = SendSms.SendMessage("Hi {} Your Password is {}".format(firstname,password),mobilenumber)
+        print("Response",result.json())
         return render(request, "EmployeeInterface.html", {'msg': 'Record Successfully Submitted'})
     except Exception as e:
         print("Error :", e)
